@@ -4,9 +4,11 @@
 For changes more substantial than simple bugfixes and documentation improvements
 we ask that these be put through a very lightweight design review process.
 
-"RFC" stands for "request for comments" and is used by many projects, e.g.
-rust-lang, to establish a consistent and controlled path for new features to
-enter their project.
+"RFC" stands for "request for comments" and are used, e.g.
+[rust-lang](https://github.com/rust-lang/rfcs), to establish a consistent
+and controlled path for new features to enter their project, so that new
+contributors can anticipate the short- and long-term development roadmap of the
+project.
 
 ## Table of Contents
 [Table of Contents]: #table-of-contents
@@ -21,9 +23,9 @@ enter their project.
 ## When should you write an RFC
 [When should you write an RFC]: #when-should-you-write-an-rfc
 
-You should provide an RFC if you intent to make a "significant" change or
-contribution to one of Cartographer's repositories. A chance is e.g.
-"significant" if it introduces a new or modifies an existing "concept". The
+You should provide an RFC if you intent to make a *significant* change or
+contribution to one of Cartographer's repositories. A change is e.g.
+*significant* if it introduces a new or modifies an existing *concept*. The
 process is really very lightweight so we encourage you to err on the side of
 RFCs.
 
@@ -37,8 +39,8 @@ the reviewer and contributor.
 
 Sometimes a PR could sit in the review queue for a long time as it was modifying
 code that was undergoing a refactoring and merging it would make that
-refactoring harder. So the purpose of RFC is not so much to vet incoming feature
-proposals, but rather allow other contributors to learn about on-going projects
+refactoring harder. So the purpose of a RFC is both to vet incoming feature
+proposals and also allow other contributors to learn about on-going projects
 and coordinate better.
 
 ## Before creating an RFC
@@ -64,9 +66,10 @@ Follow this process to get your feature merged into Cartographer.
     revise it in response.
   - When consensus about the RFC has been reached the corresponding PR will be
     approved and the PR merged.
-  - The committer will create a new "project" for the duration of the
-    implementation (which might span several PRs) in the corresponding
-    repository (e.g. cartographer_ros) and assign an RFC number.
+  - The person that actually merges the PR will create a new *project* for the
+    duration of the implementation (which might span several PRs) in the
+    projects pane of the google-cartographer organization and assign an RFC
+    number.
   - When you create implementing PRs, please add a link to the RFC in the PR
     description.
 

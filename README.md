@@ -29,6 +29,9 @@ contribution to one of Cartographer's repositories. A change is e.g.
 process is really very lightweight so we encourage you to err on the side of
 RFCs.
 
+Make sure to have *one sentence per line* in the RFC as it makes reading diffs
+much easier. The 80 characters per line limit does not apply to RFCs.
+
 ## Motivation for RFCs
 [Motivation for RFCs]: #motivation-for-rfcs
 
@@ -68,10 +71,10 @@ Follow this process to get your feature merged into Cartographer.
     approved and the PR merged.
   - The person that actually merges the PR will create a new *project* for the
     duration of the implementation (which might span several PRs) in the
-    [projects pane][Cartographer Projects] of the RFCs repository and assign an
-    RFC number.
+    [projects pane][Cartographer Projects] of the Cartographer repository and
+    assign an RFC number.
   - When you create implementing PRs, please add a link to the RFC in the PR
     description.
 
-[Cartographer Projects]: https://github.com/googlecartographer/rfcs/projects
+[Cartographer Projects]: https://github.com/googlecartographer/cartographer/projects
 [RFC repository]: http://github.com/googlecartographer/rfcs

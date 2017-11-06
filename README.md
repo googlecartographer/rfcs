@@ -68,10 +68,10 @@ Follow this process to get your feature merged into Cartographer.
     approved and the PR merged.
   - The person that actually merges the PR will create a new *project* for the
     duration of the implementation (which might span several PRs) in the
-    [projects pane][Cartographer Projects] of the google-cartographer
-    organization and assign an RFC number.
+    [projects pane][Cartographer Projects] of the RFCs repository and assign an
+    RFC number.
   - When you create implementing PRs, please add a link to the RFC in the PR
     description.
 
-[Cartographer Projects]: https://github.com/orgs/googlecartographer/projects
+[Cartographer Projects]: https://github.com/googlecartographer/rfcs/projects
 [RFC repository]: http://github.com/googlecartographer/rfcs

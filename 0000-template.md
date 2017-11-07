@@ -17,7 +17,7 @@ What is the expected outcome?
 
 Provide a brief description of the implementation details for the feature.
 What existing code paths are you planning to modify?
-What new classes or datastructures are you planning to introducer?
+What new classes or datastructures are you planning to introduce?
 
 ## Discussion Points
 [discussion]: #discussion

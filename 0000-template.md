@@ -8,15 +8,16 @@ One paragraph explanation of the feature.
 ## Motivation
 [motivation]: #motivation
 
-Why are we doing this? What use cases does it support?
+Why are we doing this?
+What use cases does it support?
 What is the expected outcome?
 
 ## Approach
 [approach]: #approach
 
 Provide a brief description of the implementation details for the feature.
-What existing code paths are you planning to modify.
-What new classes or datastructures are you planning to introduce.
+What existing code paths are you planning to modify?
+What new classes or datastructures are you planning to introducer?
 
 ## Discussion Points
 [discussion]: #discussion

@@ -4,7 +4,7 @@
 For changes more substantial than simple bugfixes and documentation improvements
 we ask that these be put through a very lightweight design review process.
 
-"RFC" stands for "request for comments" and are used, e.g.
+"RFC" stands for "request for comments" and are used, e.g. by
 [rust-lang](https://github.com/rust-lang/rfcs), to establish a consistent
 and controlled path for new features to enter their project, so that new
 contributors can anticipate the short- and long-term development roadmap of the
@@ -23,14 +23,14 @@ project.
 ## When should you write an RFC
 [When should you write an RFC]: #when-should-you-write-an-rfc
 
-You should provide an RFC if you intent to make a *significant* change or
+You should provide an RFC if you intend to make a *significant* change or
 contribution to one of Cartographer's repositories. A change is e.g.
 *significant* if it introduces a new or modifies an existing *concept*. The
 process is really very lightweight so we encourage you to err on the side of
 RFCs.
 
 Make sure to have *one sentence per line* in the RFC as it makes reading diffs
-much easier. The 80 characters per line limit does not apply to RFCs.
+much easier. There is no characters per line limit for RFCs.
 
 ## Motivation for RFCs
 [Motivation for RFCs]: #motivation-for-rfcs
@@ -77,4 +77,4 @@ Follow this process to get your feature merged into Cartographer.
     description.
 
 [Cartographer Projects]: https://github.com/googlecartographer/cartographer/projects
-[RFC repository]: http://github.com/googlecartographer/rfcs
+[RFC repository]: https://github.com/googlecartographer/rfcs

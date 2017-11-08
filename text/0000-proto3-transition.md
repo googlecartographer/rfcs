@@ -33,4 +33,4 @@ A similar PR will be written for the 'cartographer_ros' repo.
 ## Discussion Points
 [discussion]: #discussion
 
-[FirstPR](https://github.com/googlecartographer/cartographer/pull/635)
+[FirstPR]: https://github.com/googlecartographer/cartographer/pull/635

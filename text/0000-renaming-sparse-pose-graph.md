@@ -3,8 +3,7 @@
 ## Summary
 [summary]: #summary
 
-The goal of this change is to improve readability of the code base by choosing
-a better name for the "sparse pose graph", e.g. "pose graph".
+The goal of this change is to improve readability of the code base by choosing a better name for the "sparse pose graph", e.g. "pose graph".
 
 ## Motivation
 [motivation]: #motivation
@@ -13,6 +12,7 @@ Renaming "sparse pose graph" to just "pose graph" conveys almost the same inform
 The concept of a pose graph is well known in SLAM.
 Of all the features that this pose graph has being "sparse" is not particularly extraordinary.
 The expected outcome is a more readable code base.
+We want to do this change before version 1.0 while we do not guarantee stable option names since it will be harder to do afterwards.
 
 ## Approach
 [approach]: #approach

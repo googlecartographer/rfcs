@@ -11,9 +11,9 @@ This RFC aims to give the user greater flexibility with the offline node when de
 
 The online node currently supports tracking multiple concurrent trajectories in real time. This enables the Cartographer user to do cooperative SLAM using multiple robots. However, support for this in the offline node is currently limited - only a single robot configuration may be used, and the trajectories cannot be concurrent. Since this functionality is supported in the online node, this RFC aims to expand the offline node to be able to provide the same functionality, but at increased speed. 
 
-For example, a user has bagged a swarm of robots and wants to try out cooperative SLAM with Cartographer. They are interested in crunching the bags as fast as possible. Perhaps they have a bag for each robot, perhaps they have all robots in a single bag - the offline node should have a flexible configuration interface to allow for various posibities.
+For example, a user has bagged a swarm of robots and wants to try out cooperative SLAM with Cartographer. They are interested in crunching the bags as fast as possible. Perhaps they have a bag for each robot, perhaps they have all robots in a single bag - the offline node should have a flexible configuration interface to allow for various possibilities.
 
-The concurrent trajectories could be processed either sequentially or in parallel - it should not influence the end result in any way, since local SLAM is not influenced by other trajectories, and global SLAM should arrive at the same pose graph at the end, no matter what the order of insertion is. However, processing and displaying the concurrent trajectories in parallel, like the online node can do, would increase the coolness factor.
+The concurrent trajectories could be processed either sequentially or in parallel - it should not influence the end result in any way, since local SLAM is not influenced by other trajectories, and global SLAM should arrive at the same pose graph at the end, no matter what the order of insertion is. However, processing and displaying the concurrent trajectories in parallel, like the online node can do, would be more useful and increase the coolness factor.
 
 
 ### Overview of possible dataset scenarios
@@ -52,7 +52,7 @@ If we suppose that there is a mandated 1:1 relationship between bags and traject
 
 ### Configuration #1
 
-For __each bag (trajectory)__, the configuration is a tuple consisting of:
+__For each bag (trajectory)__, the configuration is a __tuple__ consisting of:
   - `TrajectoryOptions` (given in a `.lua` file)
   - A set of sensor data topics
   - Boolean `use_bag_transforms` which allows us to ignore transforms in the bag
@@ -71,7 +71,7 @@ This is given in Configuration #2.
 
 ### Configuration #2
 
-Similar to Configuration #1, but have a set of tuples for each bag.
+Similar to Configuration #1, but have a __set of tuples for each bag__.
 Each tuple describes a trajectory in the bag.
 
 For both Configuration #1 and Configuration #2, all concurrent trajectories (whether in the same bag as permitted by Configuration #2, or in different bags) are __collated__.
@@ -83,14 +83,16 @@ Another common use case is (__b__) - a single continuous trajectory is split int
 This could be handled by defining a `BagAggregate`: a list of one or more continuous bags, which are to be treated as one bag.
 
 ### Configuration #3
-Configuration is given as a set of tuples for each `BagAggregate`, each tuple describing a trajectory in the `BagAggregate`.
+Configuration is given as a __set of tuples for each `BagAggregate`__, each tuple describing a trajectory in the `BagAggregate`.
 
 As before, any concurrent trajectories are collated.
 Each `BagAggregate` has its own transform buffer (which is shared by all bags in the aggregate).
 
 ### Data format of the configuration
 
-The configuration can be given in a `.lua` file, similar to `assets_writer`.
+The configuration can be given in a `.lua` file, similar to `assets_writer`. 
+
+(Full specification missing. #helpneeded)
 
 ## Discussion Points
 [discussion]: #discussion

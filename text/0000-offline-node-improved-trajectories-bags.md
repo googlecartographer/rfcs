@@ -9,11 +9,17 @@ This RFC aims to give the user greater flexibility with the offline node when de
 ## Motivation
 [motivation]: #motivation
 
-The online node currently supports tracking multiple concurrent trajectories in real time. This enables the Cartographer user to do cooperative SLAM using multiple robots. However, support for this in the offline node is currently limited - only a single robot configuration may be used, and the trajectories cannot be concurrent. Since this functionality is supported in the online node, this RFC aims to expand the offline node to be able to provide the same functionality, but at increased speed. 
+The online node currently supports tracking multiple concurrent trajectories in real time.
+This enables the Cartographer user to do cooperative SLAM using multiple robots.
+However, support for this in the offline node is currently limited - only a single robot configuration may be used, and the trajectories cannot be concurrent.
+Since this functionality is supported in the online node, this RFC aims to expand the offline node to be able to provide the same functionality, but at increased speed. 
 
-For example, a user has bagged a swarm of robots and wants to try out cooperative SLAM with Cartographer. They are interested in crunching the bags as fast as possible. Perhaps they have a bag for each robot, perhaps they have all robots in a single bag - the offline node should have a flexible configuration interface to allow for various possibilities.
+For example, a user has bagged a swarm of robots and wants to try out cooperative SLAM with Cartographer.
+They are interested in crunching the bags as fast as possible.
+Perhaps they have a bag for each robot, perhaps they have all robots in a single bag - the offline node should have a flexible configuration interface to allow for various possibilities.
 
-The concurrent trajectories could be processed either sequentially or in parallel - it should not influence the end result in any way, since local SLAM is not influenced by other trajectories, and global SLAM should arrive at the same pose graph at the end, no matter what the order of insertion is. However, processing and displaying the concurrent trajectories in parallel, like the online node can do, would be more useful and increase the coolness factor.
+The concurrent trajectories could be processed either sequentially or in parallel - it should not influence the end result in any way, since local SLAM is not influenced by other trajectories, and global SLAM should arrive at the same pose graph at the end, no matter what the order of insertion is.
+However, processing and displaying the concurrent trajectories in parallel, like the online node can do, would be more useful and increase the coolness factor.
 
 
 ### Overview of possible dataset scenarios

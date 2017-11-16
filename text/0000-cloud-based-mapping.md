@@ -29,10 +29,10 @@ With the cloud only solving the global SLAM problem and the agents running in *p
 
 ### Software Components Overview
 
-While implementing this RFC we want to keep the following three types of Cartgrapher users happy
+While implementing this RFC we want to keep the following three types of Cartographer users happy
 
 - Users that link against libcartographer as a C++ library and don’t care about ROS at all
-- ROS users that use the ROS binaries cartographer_offline_node and cartographer_node to stream sensor data as ROS messages and receive Cartographer’s SLAM results as ROS messages
+- ROS users that use the ROS binaries *cartographer_offline_node* and *cartographer_node* to stream sensor data as ROS messages and receive Cartographer’s SLAM results as ROS messages
 - Users that want to use cloud-based mapping, might use ROS or not to send sensor data into the system and are happy to embrace gRPC as an IPC system both on the robot and between robot and cloud.
 
 To make sure all three groups of users are comfortable with the plans laid out in this RFC we have decided to
@@ -115,7 +115,6 @@ We choose to forward the sensor data in a streaming fashion rather than batching
 
 #### Visualization of SLAM results
 
-The current state of affairs is documented in the appendix section “Visualization of SLAM results”.
 Here we outline how rviz can visualize intermediate SLAM results when cartographer_grpc is used.
 
 In addition to the gRPC methods that are needed to push sensor data and local SLAM results into *cartographer_grpc*, *cartographer_grpc* will offer all the necessary gRPC methods to allow the *cartographer_node_grpc* and *cartographer_node_offline_grpc* to back the topics and ROS services that *rviz* relies on for visualization.

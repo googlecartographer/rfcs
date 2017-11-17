@@ -27,6 +27,7 @@ Moreover we would like to install only some of the header files which form the p
 We will move some of the files into a directory structure beneath `cartographer/internal`.
 Header files in `cartographer/internal` will not be installed.
 No public header file can include these internal headers.
+Similarly if gRPC-related code for cloud-based mapping is put inside a `cartographer/grpc` directory, its internal implementation will be put inside `cartographer/grpc/internal`.
 
 ## Discussion Points
 [discussion]: #discussion

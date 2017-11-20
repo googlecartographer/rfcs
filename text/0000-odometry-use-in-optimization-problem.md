@@ -31,4 +31,4 @@ We implemented 2. for testing and saw a qualitative improvement with our system.
 
 1. A discussion about the pro's and con's of the current implementation would be good since there might be different views due to different experiences with this topic.
 
-2. Because of 1., the possible approaches are of course also up to discussion.
+2. Because of 1., the possible approaches are of course also up to discussion and more suggestions are welcome.

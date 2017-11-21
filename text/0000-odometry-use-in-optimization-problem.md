@@ -24,6 +24,9 @@ We didn't come up with a master plan for this yet, but two possible approaches a
 
 2. A simple compromise would be to introduce a boolean option that allows to use the initial pose estimates for the relative constraints instead of the odometry even if odometry data is available (as it was before the change).
 
+3. Use both the local slam result as well as the wheel odometry, each weighted by a individual set of translational and rotational weight parameter.
+This way everyone could adapt cartographer to his sensors.
+
 We implemented 2. for testing and saw a qualitative improvement with our system.
 
 ## Discussion Points

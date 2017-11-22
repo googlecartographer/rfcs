@@ -84,7 +84,7 @@ The important interaction between local and global SLAM happens through `GlobalT
 
 The following component diagram describes the cloud mapping architecture
 
-![component diagram](0000-assets/cloud-based-mapping-design.png "Component Diagram")
+![component diagram](0002-assets/cloud-based-mapping-design.png "Component Diagram")
 
 On the agent side, a `GrpcMapBuilderBridge`is responsible for forwarding all information necessary for the formulation of the global SLAM problem in the cloud.
 This also includes the `LocalTrajectoryBuilder::InsertionResult`.

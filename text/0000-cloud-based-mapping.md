@@ -57,7 +57,7 @@ We have decided not to go this route and keep the current *cartographer_node* as
 
 #### cartographer_grpc
 
-We introduce a new binary,  *cartographer_grpc*, in the *cartographer* repo, which offers the cartographer gRPC service - essentially a (flattened) gRPC representation of the `MapBuilder` interface. 
+We introduce a new binary,  *cartographer_grpc*, in the *cartographer* repo, which offers the cartographer gRPC service - essentially a gRPC representation of the `MapBuilder` interface. 
 This binary runs both on agent and cloud albeit with different runtime configuration.
 Depending on its configuration it acts both as gRPC server and client. It can be configured to
 
@@ -107,10 +107,12 @@ Whenever that returns true (which is only once throughout the lifetime of any on
 
 The `CollatedTrajectoryBuilder` feeds sensor data into the `GlobalTrajectoryBuilder` in a strict time order.
 This order needs to be maintained per sensor when sensor data is forwarded to the cloud.
-A simple way to achieve this is to use a streaming gRPC connection, which ensures that “each side will always get the other’s messages in the order they were written”.
+A simple way to achieve this is to use a streaming gRPC connection, which ensures that “each side will always get the other’s messages in the order they were written” [quote](http://wildebeestdev.github.io/grpc.github.io/docs/tutorials/basic/c.html#implementing-routeguide).
 We choose to forward the sensor data in a streaming fashion rather than batching them up into a state that includes the finished submap for two reasons
 
-1. gRPC prefers small message sizes. Streaming does its best to ensure that.
+1. gRPC prefers small message sizes.
+   Streaming does its best to ensure that.
+   In this RFC we ignore the intermittent connection dropouts that are likely to happen in real systems and address them in a later RFC.
 2. Continuously sending up sensor information distributes the computational load in the cloud better as it allows to search for INTER_SUBMAP constraints against scans that belong to yet unfinished submaps.
 
 #### Visualization of SLAM results
@@ -132,3 +134,10 @@ As an example, submap visualization will work as follows
 
 ## Discussion Points
 [discussion]: #discussion
+
+*What about scaling?
+Cloud cartographer can't solve significantly larger problems than we currently solve on the robots without some changes.*
+
+This RFC only addresses the problem of distributing load between cloud and agent.
+Life-long mapping which aims to make the optimization problem feasible when robots continuously move in a constrained area for an arbitrary long time and some from of sharding in real space for huge mapping problems are deliberately not addressed by this RFC.
+These developments are also largely orthogonal to cloud-based mapping.

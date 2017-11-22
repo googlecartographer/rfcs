@@ -1,4 +1,4 @@
-# Cloud-Based Mapping
+# Cloud-Based Mapping: Upstreaming Local SLAM Results
 
 ## Summary
 [summary]: #summary
@@ -6,6 +6,7 @@
 The goal of this RFC is to describe an approach to build out the Cartographer system into a collaborative, cloud based mapping solution, i.e. we want to support a fleet of mapping agents running Cartographer in pure localization mode against a map while forwarding the required information to formulate the global SLAM problem in the cloud.
 A central cloud instance receives local SLAM results and assembles them into a global map of the environment combining information across time and agents.
 By fanning out global map updates to agents, individual agents can benefit from world observations made by other agents with the cloud acting as an arbiter.
+Note that the approach for distributing global SLAM results from the central intance to mapping agents is not described in this RFC and will be covered by a follow-up.
 
 ## Motivation
 [motivation]: #motivation

@@ -12,7 +12,8 @@ Since this approach seems to be problematic in some cases where odometry data is
 ## Motivation
 [motivation]: #motivation
 
-* Odometry-based constraints imply a certain level of trust in the quality of the odometry, which could be problematic due to the usually noisy nature of (wheel) odometry.
+* Odometry-based constraints imply a certain level of trust in the overall quality of the raw odometry measurements.
+This could be problematic due to the sometimes unreliable measurements of (wheel) odometry, especially the rotational component.
 * Initial pose estimation in the front-end combines different sensor modalities (pose extrapolation, scan matching) - in contrast, adding a pure odometry constraint in the back-end does not account for multiple sensors and may introduce a bias.
 
 ## Approach
@@ -20,14 +21,19 @@ Since this approach seems to be problematic in some cases where odometry data is
 
 We didn't come up with a master plan for this yet, but two possible approaches are:
 
-1. Revert the changes introduced by the PR mentioned above if the discussion yields that the odometry constraint is *generally* not beneficial.
+1. ~~Revert the changes introduced by the PR mentioned above if the discussion yields that the odometry constraint is *generally* not beneficial.~~
 
 2. A simple compromise would be to introduce a boolean option that allows to use the initial pose estimates for the relative constraints instead of the odometry even if odometry data is available (as it was before the change).
 
 3. Use both the local slam result as well as the wheel odometry, each weighted by a individual set of translational and rotational weight parameter.
 This way everyone could adapt cartographer to his sensors.
+This makes also sense if one sees the relative pose constraint as a .
+
+4. Use the pose extrapolator result instead of pure odometry to form the constraint.
+The extrapolator is fusing IMU and odometry *complementary*, i.e. the gyroscope data for rotation extrapolation and the odometry for translation extrapolation.
 
 We implemented 2. for testing and saw a qualitative improvement with our system.
+Point 4. is in line with our observations that showed that wheel odometry is usually more beneficial for linear motion observations than for rotation.
 
 ## Discussion Points
 [discussion]: #discussion

@@ -1,4 +1,4 @@
-# Introduction of Unified TrajectoryBuilderInterface.
+# Unify TrajectoryBuilder Interfaces.
 
 ## Summary
 [summary]: #summary
@@ -20,7 +20,7 @@ Unifying the interfaces allows to reuse the dispatch mechanism to feed the senso
 ## Approach
 [approach]: #approach
 
-A proposed implementation can be see [here](https://github.com/googlecartographer/cartographer/pull/736). TL;DR:
+A proposed implementation is available in [here](https://github.com/googlecartographer/cartographer/pull/736). TL;DR:
 
 1. Let `GlobalTrajectoryBuilder` implement `TrajectoryBuilderInterface`.
 2. Let `CollatedTrajectoryBuilder` implement `TrajectoryBuilderInterface`.

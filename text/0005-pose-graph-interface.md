@@ -1,9 +1,9 @@
-# Introduce a PoseGraphInterface Exported by MapBuilderInterface.
+# Introduce PoseGraphInterface to define public PoseGraph API.
 
 ## Summary
 [summary]: #summary
 
-We propose to introduce a new interface, i.e. `PoseGraphInterface`, which is a strict subset of `mapping::PoseGraph` and therefore implemented by all implementations of `mapping::PoseGraph`.
+We propose to introduce a new interface, i.e. `PoseGraphInterface`, which is a strict subset of `mapping::PoseGraph`.
 
 ## Motivation
 [motivation]: #motivation

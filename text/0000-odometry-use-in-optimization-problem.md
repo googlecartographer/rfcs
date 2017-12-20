@@ -22,7 +22,6 @@ This could be problematic due to the sometimes unreliable measurements of (wheel
 The proposed approaches are:
 
 1. ~~Revert the changes introduced by the PR mentioned above if the discussion yields that the odometry constraint is *generally* not beneficial.~~
-Edit: this 
 
 2. ~~A simple compromise would be to introduce a boolean option that allows to use the initial pose estimates for the relative constraints instead of the odometry even if odometry data is available (as it was before the change).~~
 

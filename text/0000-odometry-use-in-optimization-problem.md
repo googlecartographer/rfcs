@@ -13,27 +13,37 @@ Since this approach seems to be problematic in some cases where odometry data is
 [motivation]: #motivation
 
 * Odometry-based constraints imply a certain level of trust in the overall quality of the raw odometry measurements.
-This could be problematic due to the sometimes unreliable measurements of (wheel) odometry, especially the rotational component.
+This could be problematic due to the sometimes unreliable measurements of (wheel) odometry, as it can be drifting due to wheel slip or miscalibration.
 * Initial pose estimation in the front-end combines different sensor modalities (pose extrapolation, scan matching) - in contrast, adding a pure odometry constraint in the back-end does not account for multiple sensors and may introduce a bias.
 
 ## Approach
 [approach]: #approach
 
-We didn't come up with a master plan for this yet, but two possible approaches are:
+The proposed approaches are:
 
 1. ~~Revert the changes introduced by the PR mentioned above if the discussion yields that the odometry constraint is *generally* not beneficial.~~
+Edit: this 
 
-2. A simple compromise would be to introduce a boolean option that allows to use the initial pose estimates for the relative constraints instead of the odometry even if odometry data is available (as it was before the change).
+2. ~~A simple compromise would be to introduce a boolean option that allows to use the initial pose estimates for the relative constraints instead of the odometry even if odometry data is available (as it was before the change).~~
 
 3. Use both the local slam result as well as the wheel odometry, each weighted by a individual set of translational and rotational weight parameter.
-This way everyone could adapt cartographer to his sensors.
-This makes also sense if one sees the relative pose constraint as a .
+This way everyone could tune cartographer to his setup.
 
-4. Use the pose extrapolator result instead of pure odometry to form the constraint.
-The extrapolator is fusing IMU and odometry *complementary*, i.e. the gyroscope data for rotation extrapolation and the odometry for translation extrapolation.
+4. ~~Use the pose extrapolator result instead of pure odometry to form the constraint.~~
+~~The extrapolator is fusing IMU and odometry *complementary*, i.e. the gyroscope data for rotation extrapolation and the odometry for translation extrapolation.~~
+
+**Update:**
+We rejected 1. because we can't assume that odometry is never beneficial in global constraints.
 
 We implemented 2. for testing and saw a qualitative improvement with our system.
-Point 4. is in line with our observations that showed that wheel odometry is usually more beneficial for linear motion observations than for rotation.
+We observed slight rotational drift in our wheel odometry, which explains the inferior performance if the odometry constraint is used.
+This approach comes with the cost of introducing a new configuration parameter.
+
+In case a new parameter should be added, we agreed that it makes more sense to go with approach 3. as it offers more flexibility.
+
+We implemented 4. for testing and saw no qualitative improvement with our system.
+Especially due to the noisy nature of gyroscope data, the pose extrapolator is not a very precise source for global constraints.
+However, as a source for an initial guess before scan matching (as it is already used) slight noise is not as problematic as in the global optimization.
 
 ## Discussion Points
 [discussion]: #discussion
@@ -41,3 +51,5 @@ Point 4. is in line with our observations that showed that wheel odometry is usu
 1. A discussion about the pro's and con's of the current implementation would be good since there might be different views due to different experiences with this topic.
 
 2. Because of 1., the possible approaches are of course also up to discussion and more suggestions are welcome.
+
+3. If we decide for approach 3., we need to decide on meaningful default parameters.

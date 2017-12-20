@@ -16,11 +16,7 @@ If the pbstream gets frequently updated re-generating a `.pgm` and `.yaml` file 
 ## Approach
 [approach]: #approach
 
-This feature could either be implemented by modifying `occupancy_grid_node` to accept an alternative input as a pbstream file,
-or by modifying `pbstream_to_ros_map` to publish a rostopic if a flag is set. Conceptually the first option is less intrusive I would argue.
-Either way this probably may require some refacturing of one or both those nodes code, so it could be reused.
+This feature will live in a new binary along with `occupancy_grid_node` and `pbstream_to_ros_map`. Existing code for deserializing protos from a pbstream file will be reused by factoring it out of `pbstream_to_ros_map` and bringing it to libcartographer.
 
 ## Discussion Points
 [discussion]: #discussion
-
-* Whether to modify `occupancy_grid_node` or `pbstream_to_ros_map` or even to introduce another binary.

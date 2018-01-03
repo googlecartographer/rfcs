@@ -67,40 +67,58 @@ __For each bag (trajectory)__, the configuration is a __tuple__ consisting of:
 Both `TrajectoryOptions` and the sensor data topics can be identical for multiple different bags (preserving __B2c__). However, in addition to that, the trajectories can be concurrent (__B3c__).
 
 Because the trajectories may be concurrent, due care would need to be taken to ensure that data published on the same topic, but in different bags, gets routed to the appropriate trajectory.
-Also, each trajectory should have its own transform buffer, to avoid interference between different bags.
-  - For example, we may have two identical separate robots driving concurrently (__B3__); all the frames and topics are identical for both robots.
-  The online node cannot handle this (we would have to ensure that the sensor data topics would be different by e.g. using different namespaces for each robot, as well as having different frames; conflicting transforms with same frames would be an unsolvable nightmare). 
-  - However, if we had a separate bag for each robot (__B3c__), the offline node would have the advantage of knowing which data originated from which bag, so it could handle this case.
+
+~~Also, each trajectory should have its own transform buffer, to avoid interference between different bags.~~
+  ~~- For example, we may have two identical separate robots driving concurrently (__B3__); all the frames and topics are identical for both robots.~~
+  ~~The online node cannot handle this (we would have to ensure that the sensor data topics would be different by e.g. using different namespaces for each robot, as well as having different frames; conflicting transforms with same frames would be an unsolvable nightmare). 
+  - However, if we had a separate bag for each robot (__B3c__), the offline node would have the advantage of knowing which data originated from which bag, so it could handle this case.~~
+
+### Additional considered variants
 
 Going further, allowing multiple trajectories in a single bag (__C 2/3 a__) and relaxing the 1 trajectory : 1 bag restriction would mean that the configuration of each bag becomes a set of tuples mentioned above.
 This is given in Configuration #2.
 
-### Configuration #2
+#### Configuration #2
 
 Similar to Configuration #1, but have a __set of tuples for each bag__.
 Each tuple describes a trajectory in the bag.
 
 For both Configuration #1 and Configuration #2, all concurrent trajectories (whether in the same bag as permitted by Configuration #2, or in different bags) are __collated__.
 
-### Handling split bags
+#### Handling split bags
 
 Another common use case is (__b__) - a single continuous trajectory is split into multiple bags (e.g. when using the split option of `rosbag record`).
 
 This could be handled by defining a `BagAggregate`: a list of one or more continuous bags, which are to be treated as one bag.
 
-### Configuration #3
+#### Configuration #3
 Configuration is given as a __set of tuples for each `BagAggregate`__, each tuple describing a trajectory in the `BagAggregate`.
 
 As before, any concurrent trajectories are collated.
 Each `BagAggregate` has its own transform buffer (which is shared by all bags in the aggregate).
 
+### Decision
+
+Configuration #1 is to be used and implemented. The case covered by Configuration #2 is covered by specifying the same bag multiple times, but with different sensor topics. A single TF buffer is used.
+
 ### Data format of the configuration
 
-The configuration can be given in a `.lua` file, similar to `assets_writer`. 
+The comma-separated list approach, as already used for `bag_filenames`, has been expanded to `configuration_basenames`, `urdf_filenames`, and there is now `sensor_topics` as well. The tuples from Configuration #1 are thus specified positionally in the aforementioned command line arguments - i.e. the first comma-delimited item in each command line argument corresponds to the first tuple, and so on.
 
-(Full specification missing. #helpneeded)
+Here is an example of launching the offline node for two robots named alpha and delta, which were driven simultaneously, and their sensor data being captured in two corresponding bags:
+```
+rosrun cartographer_ros cartographer_offline_node
+-configuration_directory /somewhere
+-configuration_basenames alpha.lua,delta.lua -urdf_filenames alpha.urdf,delta.urdf
+-bag_filenames alpha.bag,delta.bag -sensor_topics alpha/scan:alpha/pose,delta/scan:delta/pose
+```
+
+The sensor topics for different trajectories are separated by commas. The topics for each trajectory are further separated with colons. Leaving sensor topics unspecified causes the default computed topic names to be used.
+
+If only one configuration basename or set of topics is specified, it will be used for all trajectories, thus preserving the existing behaviour.
 
 ## Discussion Points
 [discussion]: #discussion
 
 Should Configuration #1, #2 or #3 be used?
+Answer: Configuration #1.

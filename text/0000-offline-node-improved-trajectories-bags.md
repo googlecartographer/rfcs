@@ -68,11 +68,6 @@ Both `TrajectoryOptions` and the sensor data topics can be identical for multipl
 
 Because the trajectories may be concurrent, due care would need to be taken to ensure that data published on the same topic, but in different bags, gets routed to the appropriate trajectory.
 
-~~Also, each trajectory should have its own transform buffer, to avoid interference between different bags.~~
-  ~~- For example, we may have two identical separate robots driving concurrently (__B3__); all the frames and topics are identical for both robots.~~
-  ~~The online node cannot handle this (we would have to ensure that the sensor data topics would be different by e.g. using different namespaces for each robot, as well as having different frames; conflicting transforms with same frames would be an unsolvable nightmare). 
-  - However, if we had a separate bag for each robot (__B3c__), the offline node would have the advantage of knowing which data originated from which bag, so it could handle this case.~~
-
 ### Additional considered variants
 
 Going further, allowing multiple trajectories in a single bag (__C 2/3 a__) and relaxing the 1 trajectory : 1 bag restriction would mean that the configuration of each bag becomes a set of tuples mentioned above.
@@ -121,4 +116,5 @@ If only one configuration basename or set of topics is specified, it will be use
 [discussion]: #discussion
 
 Should Configuration #1, #2 or #3 be used?
+
 Answer: Configuration #1.

@@ -26,6 +26,6 @@ Alternatively, we could translate to a local ground reference frame ([ENU](https
 
 ### Should we implement a generic fixed frame pose message instead?
 
-This RFC is specific to adding GPS-like data from statelite based positioning systems. 
+This RFC is specific to adding GPS-like data from statellite based positioning systems. 
 We use the `NavSatFix` message which is widely used in the ROS community, and convert it from longitude, latitude, altitude to a cartesian coordinate system.
 In addition, in a separate RFC, a generic fixed frame pose message could also be supported. 

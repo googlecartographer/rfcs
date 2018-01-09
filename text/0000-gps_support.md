@@ -3,7 +3,7 @@
 ## Summary
 [summary]: #summary
 
-The goal is to add [NavSatFix] (http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html)  (GPS) support to Cartographer ROS. 
+The goal is to add [NavSatFix](http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html)  (GPS) support to Cartographer ROS. 
 The NavSatFix (GPS) data will be used in the pose graph optimization, using the fixed frame pose feature of Cartographer.
 
 ## Motivation
@@ -17,7 +17,7 @@ Using this data will reduce the drift in location, especially over large distanc
 
 We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html) and introduce two new options for this: `use_nav_sat` and `nav_sat_sampling_ratio`.
 
-These messages will be translated into a common cartesian coordinate frame, [ECEF] (https://en.wikipedia.org/wiki/ECEF), and given to Cartographer as `FixedFramePoseData`.
+These messages will be translated into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF), and given to Cartographer as `FixedFramePoseData`.
 
 Alternatively, we could translate to a local ground reference frame ([ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
 

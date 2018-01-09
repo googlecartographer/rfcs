@@ -17,7 +17,7 @@ Using this data will reduce the drift in location, especially over large distanc
 
 We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html) and introduce two new options for this: `use_nav_sat` and `fixed_frame_pose_sampling_ratio`.
 
-These messages will be translated into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF), and given to Cartographer as `FixedFramePoseData`.
+These messages will be [translated](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates) into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF), and given to Cartographer as `FixedFramePoseData`.
 
 Alternatively, we could translate to a local ground reference frame ([ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
 

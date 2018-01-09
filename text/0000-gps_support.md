@@ -15,7 +15,7 @@ Using this data will reduce the drift in location, especially over large distanc
 ## Approach
 [approach]: #approach
 
-We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html) and introduce two new options for this: `use_nav_sat` and `nav_sat_sampling_ratio`.
+We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html) and introduce two new options for this: `use_nav_sat` and `fixed_frame_pose_sampling_ratio`.
 
 These messages will be translated into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF), and given to Cartographer as `FixedFramePoseData`.
 

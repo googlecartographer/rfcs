@@ -19,7 +19,7 @@ We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/
 
 These messages will be [translated](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates) first into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF). 
 
-Then we will translate to a local ground reference frame (e.g. [ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
+Then we will transform to a local ground reference frame (e.g. [ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
 
 The result will be given to Cartographer as `FixedFramePoseData`.
 

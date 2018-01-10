@@ -17,9 +17,11 @@ Using this data will reduce the drift in location, especially over large distanc
 
 We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/html/msg/NavSatFix.html) and introduce two new options for this: `use_nav_sat` and `fixed_frame_pose_sampling_ratio`.
 
-These messages will be [translated](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates) into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF), and given to Cartographer as `FixedFramePoseData`.
+These messages will be [translated](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates) first into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF). 
 
-Alternatively, we could translate to a local ground reference frame ([ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
+The we will translate to a local ground reference frame (e.g. [ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
+
+And the result will be given to Cartographer as `FixedFramePoseData`.
 
 ## Discussion Points
 [discussion]: #discussion
@@ -28,4 +30,7 @@ Alternatively, we could translate to a local ground reference frame ([ENU](https
 
 This RFC is specific to adding GPS-like data from statellite based positioning systems. 
 We use the `NavSatFix` message which is widely used in the ROS community, and convert it from longitude, latitude, altitude to a cartesian coordinate system.
-In addition, in a separate RFC, a generic fixed frame pose message could also be supported. 
+In addition, in a separate RFC, a generic fixed frame pose message could also be supported.
+
+### Why don't we use ECEF? 
+In cartographer, the z axis points up. We want to preserve that property also in the fixed frame pose. 

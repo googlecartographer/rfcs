@@ -19,9 +19,9 @@ We will wire up the [sensor_msgs/NavSatFix](http://docs.ros.org/api/sensor_msgs/
 
 These messages will be [translated](https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates) first into a common cartesian coordinate frame, [ECEF](https://en.wikipedia.org/wiki/ECEF). 
 
-The we will translate to a local ground reference frame (e.g. [ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
+Then we will translate to a local ground reference frame (e.g. [ENU](https://en.wikipedia.org/wiki/Axes_conventions#Ground_reference_frames:_ENU_and_NED)) with the z-axis pointing up, and the origin at the start position.
 
-And the result will be given to Cartographer as `FixedFramePoseData`.
+The result will be given to Cartographer as `FixedFramePoseData`.
 
 ## Discussion Points
 [discussion]: #discussion
@@ -33,4 +33,4 @@ We use the `NavSatFix` message which is widely used in the ROS community, and co
 In addition, in a separate RFC, a generic fixed frame pose message could also be supported.
 
 ### Why don't we use ECEF? 
-In cartographer, the z axis points up. We want to preserve that property also in the fixed frame pose. 
+In Cartographer, the z axis points up. We want to preserve that property also in the fixed frame pose. 

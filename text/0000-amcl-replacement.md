@@ -1,5 +1,4 @@
-# Feature Name
-Cartographer AMCL replacement
+# Cartographer AMCL replacement
 
 ## Summary
 [summary]: #summary

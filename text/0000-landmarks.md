@@ -7,7 +7,7 @@ Cartographer will be able to work with a new type of sensor data that contains I
 
 ## Motivation
 [motivation]: #motivation
-Landmarks translation/orientation can improve SLAM quality. Landmarks rendered on the map can be useful for inspection. 
+Landmarks translation/orientation can improve SLAM quality. Landmark visualizations can be useful for inspection.
 
 ## Approach
 [approach]: #approach
@@ -15,20 +15,6 @@ Landmarks are sparse features of geometry that we want to map. Unlike dense rang
 
 ### Sensor
 Each landmark will have an ID and a position relative to the robot with or without orientation. A landmark observation can contain several landmarks at a time.
-
-### Submap
-Submaps for 2D and 3D geometries are occupancy grids that contain accumulated range data.  There can be two approaches to add landmarks to the submaps:
-
-1. Submap holds a dictionary with landmark data keyed by landmark IDs;
-2. Every cell of the grid is modified to hold various features, for example, likelihood of landmarks, ML features. 
-
-The second approach is more generic and makes it possible to introduce landmarks based on the strength of the signal, e.g. Wi-Fi signal, BT beacons. The first approach should work faster, it is also more flexible and non-intrusive.
-  
-### Constraint builder
-`ConstraintBuilder` should use landmarks while adding intra-submap constraints:
-
-* `FastCorrelativeScanMatcher` will use landmarks in the bounding function;
-* `CeresScanMatcher` will have an additional term in its cost function.
 
 ### Optimization problem
 Landmarks may enter sparse pose graph optimization as additional independent variables. It would increase the dimension of the optimization by `number_of_landmarks * number_of_parameters_per_landmark`, which could be undesirable when there is a significant number of landmarks.

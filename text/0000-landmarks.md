@@ -14,7 +14,7 @@ Landmarks translation/orientation can improve SLAM quality. Landmark visualizati
 Landmarks are sparse features of geometry that we want to map. Unlike dense range data, landmarks are assumed to be sparse in comparison. In order to support using them, current SLAM approach has to be generalized. 
 
 ### Sensor
-Each landmark will have an ID and a position relative to the robot with or without orientation. A landmark observation can contain several landmarks at a time.
+Each landmark observation contains all landmarks for which a relative position is currently observed. This can be an empty list.
 
 ```
 struct Landmark {

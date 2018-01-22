@@ -21,7 +21,7 @@ Each landmark observation contains all landmarks for which a relative position i
 This can be an empty list.
 
 ```
-struct Landmark {
+struct LandmarkObservation {
   std::string id;
   transform::Rigid3d transform;
   double translation_weight;
@@ -30,7 +30,7 @@ struct Landmark {
 
 struct LandmarkData {
   common::Time time;
-  std::vector<Landmark> landmarks;
+  std::vector<LandmarkObservation> landmarks;
 };
 ```
 

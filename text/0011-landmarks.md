@@ -71,7 +71,7 @@ This logic is already implemented within `TransformInterpolationBuffer`.
 
 Residuals depend on the parameter block `[c_previous, c_next, c_landmark]`, i.e. on the global poses of the previous and next trajectory nodes and the global pose of the landmark itself:
 
-![component diagram](0000-assets/cost.png "Cost function")
+![component diagram](0011-assets/cost.png "Cost function")
 
 where `w` is the weight vector; `c` denotes global poses and `h` relative ones.
 

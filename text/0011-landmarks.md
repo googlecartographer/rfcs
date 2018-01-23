@@ -46,7 +46,9 @@ LandmarkNode {
   LandmarkObservation {
     common::Time time;
     int trajectory_id;
-    
+    int next_trajectory_node_id;
+    int previous_trajectory_node_id;
+
     transform::Rigid3d landmark_to_tracking_transform;
     double translation_weight;
     double rotation_weight;
@@ -67,7 +69,6 @@ It increases the dimension of the optimization by `number_of_landmarks * number_
 #### Cost function
 Landmark sensor data contains only the landmark position relative to the robot. In order to formulate a landmark-to-trajectory cost functional the global pose of the robot at the moment of the observation has to be known.
 Since a landmark observation can be made at the time between two trajectory nodes and, moreover, the global poses of the trajectory nodes are state variables as well, the translation and rotation of the landmark at the moment can be interpolated using the previous and the next node, i.e. taking a convex combination of the translation components and slerp of the quaternions.
-This logic is already implemented within `TransformInterpolationBuffer`.
 
 Residuals depend on the parameter block `[c_previous, c_next, c_landmark]`, i.e. on the global poses of the previous and next trajectory nodes and the global pose of the landmark itself:
 
@@ -79,18 +80,7 @@ There will be no loss function as for intra submap constraints.
 
 #### Constraints
 The cost function for landmark-to-trajectory constraints depends on the previous and next trajectory nodes.
-They are not known at the moment when the sensor data comes, but we can find them prior to the `RunOptimization` call using `AddWorkItem()` for landmark observations that were not yet processed.
-
-There are two ways of storing the landmark constraints in `PoseGraph`:
-
-1.  as a separate `std::vector<LandmarkConstraint> landmark_constraints_`, which would bloat the `PoseGraph` even more.
-Since the next RFC will talk about adding landmark-to-landmark constraints, I would try to avoid this option.
-1. in the current `std::vector<Constraint> constraints_`, which would lead to expanding the `Constraint` struct and adding  a new value to `enum Tag { INTRA_SUBMAP, INTER_SUBMAP } tag;`
-1. keep all information in `LandmarkNode` message.
-
-The third option is the least invasive.
-The question is whether we want `Constraint` struct to represent all constraints or only inter-/intra-submap ones.
-
+They are not known at the moment when the sensor data comes, but we can find them in `RunOptimization()` call.
 
 ### Rendering
 Landmarks IDs and positions should be propagated to RViz for rendering.

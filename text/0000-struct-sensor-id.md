@@ -3,7 +3,7 @@
 ## Summary
 [summary]: #summary
 
-Replace the string sensor_id by a structure with an enum sensor type and a string.
+Replace the `string` sensor_id by a `struct` which allows us to include sensor metadata, such as an `enum SensorType`.
 
 ## Motivation
 [motivation]: #motivation
@@ -18,6 +18,7 @@ The suggested change is to replace 'std::string sensor_id' by a struct that cont
 This allows us to implement distributed local/global mapping in a clean way, such as removing range finder sensors from the set and adding a sensor type for local slam results.
 
 As an additional benefit, future concepts about properties of sensors would be easy to implement.
+For instance, it would be easy to include collator timeouts or tag "sparse sensors" that processing should not wait for.
 
 ## Discussion Points
 [discussion]: #discussion

@@ -14,18 +14,18 @@ For example, when local SLAM runs on an agent server and global SLAM on an uplin
 ## Approach
 [approach]: #approach
 
-The suggested change is to replace 'std::string sensor_id' by a struct that contains an 'enum SensorType' and a 'std::string id'.
+The suggested change is to replace `std::string sensor_id` by a struct that contains an `enum SensorType` and a `std::string id`.
 This allows us to implement distributed local/global mapping in a clean way, such as removing range finder sensors from the set and adding a sensor type for local slam results.
 
 As an additional benefit, future concepts about properties of sensors would be easy to implement.
-For instance, it would be easy to include collator timeouts or tag "sparse sensors" that processing should not wait for.
+For instance, it would be easy to include collator timeouts or tag "sparse" sensors that processing should not wait for.
 
 ## Discussion Points
 [discussion]: #discussion
 
 Alternatives would be:
 
-* Passing two separate sets of 'expected_sensor_ids' to 'AddTrajectoryBuilder', the new one "expected_rangefinder_sensor_ids".
+* Passing two separate sets of `expected_sensor_ids` to `AddTrajectoryBuilder`, the new one `expected_rangefinder_sensor_ids`.
 * Matching well-known strings like "scan" or "rangefinder" and removing them from a set.
 
 

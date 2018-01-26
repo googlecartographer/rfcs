@@ -9,7 +9,7 @@ Replace the `string` sensor_id by a `struct` which allows us to include sensor m
 [motivation]: #motivation
 
 When distributing local and global slam over different processes, identifying sensors by a string is no longer sufficient, because multiple range finder sensors in local SLAM become a single LocalSlamResult sensor on the global side.
-For example, when local SLAM runs on an agent server and global SLAM on an uplink server, the agent server expects n range finder sensors and additional sensors, while the collator of the uplink server waits for only one "LocalSlamResultData" input and the addtional sensors.
+For example, when local SLAM runs on an agent server and global SLAM on an uplink server, the agent server expects `n` range finder sensors and additional sensors, while the collator of the uplink server waits for only one "LocalSlamResultData" input and the addtional sensors.
 
 ## Approach
 [approach]: #approach

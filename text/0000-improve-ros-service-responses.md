@@ -74,6 +74,7 @@ The `status_msg` should ideally be equal to the log messages.
 ~~**Success Flag and Message String**~~
 <details>
 <summary>Click to expand discarded proposal</summary>
+
 * pro:
   * easy to implement
   * boolean flag clearly indicates success / failure
@@ -85,6 +86,7 @@ The `status_msg` should ideally be equal to the log messages.
 ~~**Error Code + Dictionary**~~ <br>
 <details>
 <summary>Click to expand discarded proposal</summary>
+
 A numeric return value which can be used to look up the detailed error description in a common error dictionary.
 Alternatively, [enum-like behaviour](https://answers.ros.org/question/9427/enum-in-msg/?answer=105806#post-id-105806) could be implemented in the message definition.
 * pro:

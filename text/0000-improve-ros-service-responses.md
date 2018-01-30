@@ -57,15 +57,34 @@ The affected callbacks are:
 
 Ideally, the caller gets a response that makes the outcome of the callback transparent.
 
-**Success Flag and Message String**
+**gRPC Error Code and Message String** <br>
+Follow [error ID scheme of gRPC](https://developers.google.com/maps-booking/reference/grpc-api/status_codes) and add a detailed status message.
+
+Template `.srv` implementing this approach:
+```
+# request params
+---
+uint8 status_code  # 0..15 as in gRPC definition
+string status_msg
+# other response params
+```
+
+The `status_msg` should ideally be equal to the log messages.
+
+~~**Success Flag and Message String**~~
+<details>
+<summary>Click to expand discarded proposal</summary>
 * pro:
   * easy to implement
   * boolean flag clearly indicates success / failure
   * message easy to interpret for user
 * contra:
   * calling code might not be able to interpret the message
+</details>
 
-**Error Code + Dictionary** <br>
+~~**Error Code + Dictionary**~~ <br>
+<details>
+<summary>Click to expand discarded proposal</summary>
 A numeric return value which can be used to look up the detailed error description in a common error dictionary.
 Alternatively, [enum-like behaviour](https://answers.ros.org/question/9427/enum-in-msg/?answer=105806#post-id-105806) could be implemented in the message definition.
 * pro:
@@ -73,7 +92,7 @@ Alternatively, [enum-like behaviour](https://answers.ros.org/question/9427/enum-
   * service caller can look up errors from the dictionary without knowing the intrinsic behaviour of the callback, e.g. for logging
 * contra:
   * error dictionaries of the caller and the handling node must not diverge
-
+</details>
 
 
 ### Others

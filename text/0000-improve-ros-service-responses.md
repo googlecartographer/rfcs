@@ -67,6 +67,7 @@ Ideally, the caller gets a response that makes the outcome of the callback trans
 
 **Error Code + Dictionary** <br>
 A numeric return value which can be used to look up the detailed error description in a common error dictionary.
+Alternatively, [enum-like behaviour](https://answers.ros.org/question/9427/enum-in-msg/?answer=105806#post-id-105806) could be implemented in the message definition.
 * pro:
   * easy to implement
   * service caller can look up errors from the dictionary without knowing the intrinsic behaviour of the callback, e.g. for logging

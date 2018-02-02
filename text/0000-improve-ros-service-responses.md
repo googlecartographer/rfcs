@@ -70,6 +70,8 @@ string status_msg
 ```
 
 The `status_msg` should ideally be equal to the log messages.
+The two status response field could also be wrapped inside a single, custom `ServiceStatus` message.
+
 
 ~~**Success Flag and Message String**~~
 <details>

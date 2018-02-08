@@ -31,6 +31,9 @@ provide these reference signals with little intrusion in Cartographer code.
 
 [approach]: #approach
 
+The approach below is illustrated by a
+[prototype](https://github.com/googlecartographer/cartographer/pull/876).
+
 ### Cartographer facade
 
 Inside the cartographer library, we establish a system-agnostic facade for

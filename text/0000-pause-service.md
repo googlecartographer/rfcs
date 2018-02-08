@@ -13,6 +13,7 @@ In this scenario, situations can occur where you want to pause the current SLAM 
 For example, to run a necessary sensor calibration procedure that could interfere the SLAM system during live operation.
 
 Definition of a pause:
+* system is not physically moved
 * ignore incoming sensor streams
 * don't run local SLAM
   * don't publish new poses

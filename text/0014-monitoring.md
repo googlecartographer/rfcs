@@ -40,7 +40,7 @@ The facade lives in the cartographer::metrics namespace and includes these core 
 *   `Histogram`: A thread-safe histogram with predefined buckets and constant memory usage.
     It's different from `cartographer::common::Histogram`, which is thread-unsafe and does the bucketing after value collection.
     Over time, I think that there would be potential to merge the two Histogram classes.
-*   `CounterFamily`, `GaugeFamily`, `HistogramFamily`: An interface for obtaining `Counter`/`Gauge`/`Histogram` instances that share a common purpose and only differ by a set of labels.
+*   `CounterFamily`, `GaugeFamily`, `HistogramFamily`: An interface for obtaining `Counter`/`Gauge`/`Histogram` instances that form an aggregation domain. All metrics within a family can be safely aggregated. Different metrics in the same family can be differentiated by labels, e.g. "result" for a metric about RPC responses.
 *   `Registry`: An interface that yields `HistogramFamily`, `CounterFamily` and `GaugeFamily`.
     The prototype called this `FamilyFactory`, but `Registry` should be clearer and less Prometheus-specific.
 

@@ -21,6 +21,10 @@ Chunks are output as a new struct `TimedPointCloudOriginData`.
 (This is different from `Collator`, which does not modify data.)
 `RangeDataCollator` lives in `LocalTrajectoryBuilder`.
 
+Behavior:
+
+![component diagram](0017-assets/chunks.png)
+
 A work-in-progress implementation is given in https://github.com/googlecartographer/cartographer/pull/961.
 
 ## Discussion Points

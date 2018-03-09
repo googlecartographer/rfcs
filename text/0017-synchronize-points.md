@@ -19,7 +19,7 @@ Inside chunks, points are sorted by time, and refer to the origin from where the
 Each chunk ends when a range data message ends.
 Chunks are output as a new struct `TimedPointCloudOriginData`.
 (This is different from `Collator`, which does not modify data.)
-`RangeDataCollator` lives in `LocalTrajectoryBuilder`.
+`RangeDataCollator` is a member of `LocalTrajectoryBuilder`.
 
 Behavior:
 

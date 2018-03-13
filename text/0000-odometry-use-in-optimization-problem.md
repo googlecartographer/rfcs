@@ -31,7 +31,8 @@ This way everyone could tune cartographer to his setup.
 4. ~~Use the pose extrapolator result instead of pure odometry to form the constraint.~~
 ~~The extrapolator is fusing IMU and odometry *complementary*, i.e. the gyroscope data for rotation extrapolation and the odometry for translation extrapolation.~~
 
-**Update:**
+<details>
+<summary>Changelog - click to expand</summary>
 We rejected 1. because we can't assume that odometry is never beneficial in global constraints.
 
 We implemented 2. for testing and saw a qualitative improvement with our system.
@@ -43,6 +44,7 @@ In case a new parameter should be added, we agreed that it makes more sense to g
 We implemented 4. for testing and saw no qualitative improvement with our system.
 Especially due to the noisy nature of gyroscope data, the pose extrapolator is not a very precise source for global constraints.
 However, as a source for an initial guess before scan matching (as it is already used) slight noise is not as problematic as in the global optimization.
+</details>
 
 ## Discussion Points
 [discussion]: #discussion

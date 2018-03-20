@@ -46,6 +46,35 @@ Especially due to the noisy nature of gyroscope data, the pose extrapolator is n
 However, as a source for an initial guess before scan matching (as it is already used) slight noise is not as problematic as in the global optimization.
 </details>
 
+## Example for the Effect of Separate Constraints (proposal #4)
+
+We investigated a section of the `hallway_localization.bag` repository in which errors can be observed in the raw pointcloud (exported with the assets writer).
+The mapping was run with the default parameters of the `cartographer_magazino` repository, i.e. with optimization enabled.
+
+The following two pictures show the top view of the pointclouds generated with the current optimization approach and a prototype of the proposed separate constraints approach.
+The shown area is a flat wall, which means that the standard deviation of the scan points from the wall should be low around the true wall surface (no "double walls").
+This means: a thin distribution of points is an indicator for high quality pose estimates.
+
+Current upstream, i.e. implicit odometry-based constraints:
+![upstream](0000-assets/raw-pointcloud_current_upstream.png)
+
+Proposed explicit, separate weighting:
+![upstream](0000-assets/raw-pointcloud_separate_constraints.png)
+
+The only parameters added for the new approach were:
+```lua
+POSE_GRAPH.optimization_problem.initial_pose_translation_weight = 1e5
+POSE_GRAPH.optimization_problem.initial_pose_rotation_weight = 1e5
+POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e5
+POSE_GRAPH.optimization_problem.odometry_rotation_weight = 1e1
+```
+
+The new parameterization gives the flexibility to down-weight the rotation of the  wheel odometry (which we don't trust too much), while still benefitting from the strong rotation estimates of local slam and the high-resolution translation of the wheel odometry.
+
+Test integration & data: [cartographer_magazino](https://github.com/magazino/cartographer_magazino)
+
+
+
 ## Discussion Points
 [discussion]: #discussion
 

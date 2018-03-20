@@ -25,7 +25,7 @@ The proposed approaches are:
 
 2. ~~A simple compromise would be to introduce a boolean option that allows to use the initial pose estimates for the relative constraints instead of the odometry even if odometry data is available (as it was before the change).~~
 
-3. Use both the local slam result as well as the wheel odometry, each weighted by a individual set of translational and rotational weight parameter.
+3. ***Use both the local slam result as well as the wheel odometry, each weighted by a individual set of translational and rotational weight parameter.***
 This way everyone could tune cartographer to his setup.
 
 4. ~~Use the pose extrapolator result instead of pure odometry to form the constraint.~~
@@ -53,7 +53,7 @@ The mapping was run with the default parameters of the `cartographer_magazino` r
 
 The following two pictures show the top view of the pointclouds generated with the current optimization approach and a prototype of the proposed separate constraints approach.
 The shown area is a flat wall, which means that the standard deviation of the scan points from the wall should be low around the true wall surface (no "double walls").
-This means: a thin distribution of points is an indicator for high quality pose estimates.
+Therefore, a thin distribution of points is an indicator for high quality pose estimates.
 
 Current upstream, i.e. implicit odometry-based constraints:
 ![upstream](0000-assets/raw-pointcloud_current_upstream.png)
@@ -69,7 +69,7 @@ POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e5
 POSE_GRAPH.optimization_problem.odometry_rotation_weight = 1e1
 ```
 
-The new parameterization gives the flexibility to down-weight the rotation of the  wheel odometry (which we don't trust too much), while still benefitting from the strong rotation estimates of local slam and the high-resolution translation of the wheel odometry.
+The new parameterization gives the flexibility to down-weight the rotation of the  wheel odometry (which we don't trust too much), while still benefiting from the strong rotation estimates of local slam and the high-resolution translation of the wheel odometry.
 
 Test integration & data: [cartographer_magazino](https://github.com/magazino/cartographer_magazino)
 

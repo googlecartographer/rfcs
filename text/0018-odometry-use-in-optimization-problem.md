@@ -61,13 +61,6 @@ Current upstream, i.e. implicit odometry-based constraints:
 Proposed explicit, separate weighting:
 ![upstream](0018-assets/raw-pointcloud_separate_constraints.png)
 
-The only parameters added for the new approach were:
-```lua
-POSE_GRAPH.optimization_problem.initial_pose_translation_weight = 1e5
-POSE_GRAPH.optimization_problem.initial_pose_rotation_weight = 1e5
-POSE_GRAPH.optimization_problem.odometry_translation_weight = 1e5
-POSE_GRAPH.optimization_problem.odometry_rotation_weight = 1e1
-```
 
 The new parameterization gives the flexibility to down-weight the rotation of the  wheel odometry (which we don't trust too much), while still benefiting from the strong rotation estimates of local slam and the high-resolution translation of the wheel odometry.
 

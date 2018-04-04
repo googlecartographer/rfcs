@@ -23,9 +23,12 @@ For the `ProbabilityGrid`, application of the `CorrespondenceCostFunction` yield
 Therefore, no change in performance of the `ProbabilityGrid` is expected.
 Furthermore, `Grid2D` exposes functions the get the minimum and maximum possible correspondence cost which are required for the constraint detection. 
 
-Similarly, we propose to rename the current `Submap2D` to `OccupancySubmap2D` and to introduce an new abstract class `Submap2D` serving as an interface for grid-specific implementations `OccupancySubmap2D` and `TruncatedSignedDistanceSubmap2D`.
+![component diagram](0000-assets/grid2d_uml.png "Grid2D UML-diagram")
+
+Similarly, we propose to rename the current `Submap2D` to `ProbabilisticSubmap2D` and to introduce an new abstract class `Submap2D` serving as an interface for grid-specific implementations `ProbabilisticSubmap2D` and `TruncatedSignedDistanceSubmap2D`.
 `Submap2D` exposes the grid interface `Grid2D` and the Protocol Buffers related functions `ToProto`, `UpdateFromProto` and `ToResponseProto`.
 
+![component diagram](0000-assets/submap_uml.png "Submap UML-diagram")
 
 ## Discussion Points
 [discussion]: #discussion

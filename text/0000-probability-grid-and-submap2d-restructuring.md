@@ -2,7 +2,7 @@
 ## Summary
 [summary]: #summary
 
-We propose to introduce a generalized structure of the `ProbabilityGrid` and `Submap2D` to allow the use of alternative grid data structures such as signed distance fields or adding intensities to submaps.
+We propose to introduce a generalized structure of the `ProbabilityGrid` and `Submap2D` to allow the use of alternative grid data representations such as signed distance fields or adding intensities to submaps.
 `ProbabilityGrid` will be generalized to serve as an interface for scan matching and constraint detection, allowing to use the same scan matcher and constraint detector with different map representations.
 
 

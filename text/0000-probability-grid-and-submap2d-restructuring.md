@@ -1,16 +1,15 @@
-# Generalize Probability Grid and Submap2D Structures for Signed Distance Field Approaches
-
+# Generalize Probability Grid and Submap2D Structure
 ## Summary
 [summary]: #summary
 
-We propose to introduce a generalized structure of the `ProbabilityGrid` and `Submap2D` to allow the utilization of alternative grid data structures such as signed distance fields.
-`ProbabilityGrid` will be generalized to serve as an interface for scan matching and constraint detection, allowing to utilize the same scan matcher and constraint detector with different mapping backends.
+We propose to introduce a generalized structure of the `ProbabilityGrid` and `Submap2D` to allow the use of alternative grid data structures such as signed distance fields or adding intensities to submaps.
+`ProbabilityGrid` will be generalized to serve as an interface for scan matching and constraint detection, allowing to use the same scan matcher and constraint detector with different map representations.
 
 
 ## Motivation
 [motivation]: #motivation
 
-A generalized map interface allows the exploration of alternative map representations, such as Truncated Signed Distance Fields (e.g. [Kinect Fusion](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ismar2011.pdf))  or Euclidean Signed Distance Fields (e.g. [Voxblox](https://arxiv.org/pdf/1611.03631.pdf)).
+A generalized map interface allows the exploration of alternative map representations, such as Truncated Signed Distance Fields (e.g. [Kinect Fusion](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ismar2011.pdf)), Euclidean Signed Distance Fields (e.g. [Voxblox](https://arxiv.org/pdf/1611.03631.pdf)) or adding intensities to submaps.
 Signed Distance Field approaches provide a straightforward extraction of iso-surfaces (eg. as surface mesh).
 First experiments indicate potential benefits in terms of accuracy of the pose, fidelity of the map and efficiency (see [2D-SDF-SLAM](https://www.researchgate.net/profile/Joscha-David_Fossel/publication/308298063_2D-SDF-SLAM_A_signed_distance_function_based_SLAM_frontend_for_laser_scanners/links/58e66d1fa6fdcc6800b47916/2D-SDF-SLAM-A-signed-distance-function-based-SLAM-frontend-for-laser-scanners.pdf)).
 

@@ -16,8 +16,9 @@ First experiments indicate potential benefits in terms of accuracy of the pose, 
 ## Approach
 [approach]: #approach
 
-We propose to introduce an abstract class `Grid2D` to serve as common interface for 2D grids.
-It maintains the map limits, the update indices and exposes the function `GetCorrespondenceCost` which computes a cost based on the matching of a range observation at a given position with the map.
+We propose to introduce a common grid interface `Grid` providing a factory method to generate a new grid.
+`Grid` will be the base class for `Grid2D` which will serve as common interface for 2D grids.
+`Grid2D` maintains the map limits, the update indices and exposes the function `GetCorrespondenceCost` which computes a cost based on the matching of a range observation at a given position with the map.
 `GetCorrespondenceCost` is used for scan matching and constraint detection instead of `GetProbability`.
 For the `ProbabilityGrid`, application of the `CorrespondenceCostFunction` yields an equivalent formulation of the underlying optimization problem as before.
 Therefore, no change in performance of the `ProbabilityGrid` is expected.
@@ -25,10 +26,10 @@ Furthermore, `Grid2D` exposes functions the get the minimum and maximum possible
 
 ![component diagram](0000-assets/grid2d_uml.png "Grid2D UML-diagram")
 
-Similarly, we propose to rename the current `Submap2D` to `ProbabilisticSubmap2D` and to introduce an new abstract class `Submap2D` serving as an interface for grid-specific implementations `ProbabilisticSubmap2D` and `TruncatedSignedDistanceSubmap2D`.
-`Submap2D` exposes the grid interface `Grid2D` and the Protocol Buffers related functions `ToProto`, `UpdateFromProto` and `ToResponseProto`.
+Furthermore, `Submap2D` will expose the `Grid2D` type instead of `ProbabilityGrid`.
 
 ![component diagram](0000-assets/submap_uml.png "Submap UML-diagram")
+
 
 ## Discussion Points
 [discussion]: #discussion

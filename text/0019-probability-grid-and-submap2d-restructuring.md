@@ -24,11 +24,11 @@ For the `ProbabilityGrid`, application of the `CorrespondenceCostFunction` yield
 Therefore, no change in performance of the `ProbabilityGrid` is expected.
 Furthermore, `Grid2D` exposes functions the get the minimum and maximum possible correspondence cost which are required for the constraint detection. 
 
-![component diagram](0000-assets/grid2d_uml.png "Grid2D UML-diagram")
+![component diagram](0019-assets/grid2d_uml.png "Grid2D UML-diagram")
 
 Furthermore, `Submap2D` will expose the `Grid2D` type instead of `ProbabilityGrid`.
 
-![component diagram](0000-assets/submap_uml.png "Submap UML-diagram")
+![component diagram](0019-assets/submap_uml.png "Submap UML-diagram")
 
 
 ## Discussion Points

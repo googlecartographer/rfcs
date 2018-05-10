@@ -23,7 +23,8 @@ We propose to introduce a callback with the following signature:
 
 ```
 using GlobalSlamResultCallback = std::function<void(
-    const std::map<int, SubmapId>&, const std::map<int, NodeId>&)>;
+    const std::map<int /* trajectory_id */, SubmapId>&,
+    const std::map<int /* trajectory_id */, NodeId>&)>;
 ```
 
 i.e. the callback gets passed two maps, mapping trajectory IDs to the last optimized `SubmapId` and `NodeId`.

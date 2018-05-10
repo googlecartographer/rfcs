@@ -29,7 +29,7 @@ using GlobalSlamResultCallback = std::function<void(
 i.e. the callback gets passed two maps, mapping trajectory IDs to the last optimized `SubmapId` and `NodeId`.
 
 We would change the public API by adding the `GlobalSlamResultCallback` as a constructor argument to `MapBuilder` which passes it on as a const'or argument to either `PoseGraph2d` or `PoseGraph3d`.
-The callback is invoked in `PoseGraph2/3d::RunOptimization()`.
+The callback is invoked in `WhenDone` callback right after `PoseGraph2/3d::RunOptimization()`. We need to take a mutex lock to determine the last optimized `NodeId` and `SubmapId`, but we will give up the lock before invoking the callback to ensure that the provided callback can access the `PoseGraph`.
 
 ## Discussion Points
 [discussion]: #discussion

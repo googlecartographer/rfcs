@@ -4,49 +4,87 @@
 
 [summary]: #summary
 
-Definition of a stable, yet extensible serialization format for cartographer-maps.
+Definition of a versioned, backwards-compatible and extensible serialization format for cartographer-maps.
 
-*   pick-up proposed header format from [RFC-0015](https://gitub.com/googlecartographer/rfc/text/0015-serialization-header.md)
+*  picking up on previously proposed header format from [RFC-0015](https://gitub.com/googlecartographer/rfc/text/0015-serialization-header.md)
 
 ## Motivation
 
 [motivation]: #motivation
 
-Currently there is no way of identifying the format of the proto-stream file, given the file alone.
+At the moment, the file format for serialized *PoseGraphs* is defined purely within the serialization & deserialization routines of cartographer. Since we serialize all information into a binary stream of `protobuf` messages (*pbstream*) without a format-version information, extending or changing the format inevitably leads to a breaking change for cartographer users, as there is no way of falling back to load previously serialized maps.
 
-*   Getting rid of magic positions in the stream
-*   Versioning of the serialized, s.th. we can support loading maps from
-    previous versions (backwards compatibility)
-*   Avoid breaking users in the future due to changes in storage format
+This RFC is going to address this issue by introducing a `SerializationHeader` message and introducing an interface for parsing serialized *PoseGraphs*.
 
 ## Approach
 
 [approach]: #approach
 
-* define Header proto including a version number
-* Wrap all other protos using a one-of {...} proto.
+For being able to identify the underlying file-format, we introduce a `SerializationHeader` message.
 
-* Given the version number, the order of protos in the pbstream file is uniquely defined and we can make hard assumptions about it
-* When we want to extend the content, we only need to "bump" the version number and add the new protos to the one-of section
+```
+message SerializationHeader {
+  string format_version = 1;
+}
+```
 
-* Backwards-Compatibility:
-	* If no header found, fallback trial to "pre-header" format
-	* migration tool
-		* should in theory be a trivial header "prepend"
-* Code:
-	* decouple PbStream reader from format parsing
-		* Introduce new interface that allows format agnostic map-building and use this everywhere we read pbstreams for the purpose of posegraph reading
-		
-* New serialization / pose_graph writing will default to the new proposed format
+We further introduce a `SerializedPoseGraphData` protobuf message, which is meant to be able to contain `one-of` any of the message types required for serializing the mapping state:
 
-* Moving away from PbStream to another (potentially more efficient) format on disk, should be treated in an independent RFC.
+```
+message SerializedPoseGraphData {
+  oneof data {
+    PoseGraph pose_graph = 1;
+    AllTrajectoryBuilderOptions all_trajectory_builder_options = 2;
+    Submap submap = 3;
+    Node node = 4;
+    ImuData imu_data = 5;
+    OdometryData odometry_data = 6;
+    FixedFramePoseData fixed_frame_pose_data = 7;
+    TrajectoryData trajectory_data = 8;
+    LandmarkData landmark_data = 9;
+  }
+}
+```
+
+Using the above messages, the generic file format is defined as:
+
+| `SerializationHeader` |
+| :---: |
+| (`SerializedPoseGraphData`)* |
+
+### Version 1.0 file-format
+
+Using the definitions above, the proposed file-format of version 1.0 is as follows
+
+| `SerializationHeader` | 
+| :---: |
+|`PoseGraph` |
+| `AllTrajectoryBuilderOptions` |
+| (`Submap`)\* |
+| (`Node`)\* | 
+| (`ImuData`)\*| 
+| (`OdometryData`)\* |
+| (`FixedFramePoseData`)\* |
+| (`TrajectoryData`)\* |
+| (`LandmarkData`)\* |
+
+
+### Backwards-Compatibility
+
+* To gracefully transition to the new format, we will provide an internal fallback to the *old* parsing of PbStreams. 
+Meaning, we will first try to read the a `SerializationHeader` from the pbstream and if this fails, seek back in the stream and try parsing the *old* format. This way we can at least provide functionality for parsing the last pre-header version.
+* To discourage usage of the old format, the code for serializing the mapping state will only support the new format.
+* Additionally we will provide a migration tool to re-write already serialized pbstreams into the new format.
 
 ## Discussion Points
 
 [discussion]: #discussion
+* Version string for new format: 0.9 or 1.0?
+* Duplicating protos to separate storage and *wire* format as of protobuf-best-practices
+* Naming preferences:
+   	- `SerializationHeader`
+   	- `SerializedPoseGraphData`
 
-* Separating storage from client format completely
-	* Protobuf best practices advice to "completely" separate storage from wire protos from early on. We should therefore "duplicate" our serialization types as a follow up and only use them for storage and never for anything else.
-* Naming
-* Versioning: string? 0.9?
+
+
 

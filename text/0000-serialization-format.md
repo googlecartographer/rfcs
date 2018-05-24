@@ -48,28 +48,30 @@ message SerializedPoseGraphData {
 
 By keeping all the `PoseGraph` related payload-data wrapped in a single message type, we can also easily switch to a different file format in the future (e.g. [Riegeli](https://github.com/google/riegeli/)).
 
-### Generic Message Format
+### Generic File Format
 Using the above messages, the generic file format is defined as:
 
-| `SerializationHeader` |
+| *Generic File Format* |
 | :---: |
-| (`SerializedPoseGraphData`)* |
+| SerializationHeader |
+| (SerializedPoseGraphData)* |
 
 ### Version 1.0 file-format
 
 Using the definitions above, the proposed file-format of version 1.0 is as follows
 
-| `SerializationHeader` | 
+|*Version 1.0 fileformat (proto order)*|
 | :---: |
-|`PoseGraph` |
-| `AllTrajectoryBuilderOptions` |
-| (`Submap`)\* |
-| (`Node`)\* | 
-| (`ImuData`)\*| 
-| (`OdometryData`)\* |
-| (`FixedFramePoseData`)\* |
-| (`TrajectoryData`)\* |
-| (`LandmarkData`)\* |
+| SerializationHeader | 
+|PoseGraph |
+| AllTrajectoryBuilderOptions |
+| (Submap)\* |
+| (Node)\* | 
+| (ImuData)\*| 
+| (OdometryData)\* |
+| (FixedFramePoseData)\* |
+| (TrajectoryData)\* |
+| (LandmarkData)\* |
 
 
 ### Backwards-Compatibility

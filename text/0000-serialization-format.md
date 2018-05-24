@@ -10,6 +10,12 @@ format for the state of Cartographer.
 This RFC is a small deviation of the previously proposed header format from
 [RFC-0015](https://github.com/googlecartographer/rfcs/blob/master/text/0015-serialization-header.md).
 
+#### Note: This is **NOT** a definition of the binary file-format on disk.
+
+This RFC is mainly addressing the logical order of protobuf messages within a
+decoded binary stream (where decoded e.g. refers to the decompressed message
+stream for *pbstream* files).
+
 ## Motivation
 
 [motivation]: #motivation
@@ -65,40 +71,40 @@ By keeping all the payload related data wrapped in a single message type, we can
 also easily switch to a different underlying storage format in the future (e.g.
 [Riegeli](https://github.com/google/riegeli/)).
 
-### Generic File Format
+### Generic Serialization Order
 
-Using the above messages, the generic file format is defined as:
+Using the above messages, the generic serialization order is defined as:
 
-*Generic File Format* |
-:-------------------: |
-SerializationHeader   |
-(SerializedData)*     |
+*Generic Serialization Order* |
+:---------------------------: |
+SerializationHeader           |
+(SerializedData)*             |
 
-### Version 1.0 file-format
+### Version 1.0 Serialization Order
 
 Using the definitions above, the proposed file-format for version 1.0 is as
 follows
 
-*Version 1.0 fileformat (proto order)* |
-:------------------------------------: |
-SerializationHeader                    |
-PoseGraph                              |
-AllTrajectoryBuilderOptions            |
-(Submap)\*                             |
-(Node)\*                               |
-(ImuData)\*                            |
-(OdometryData)\*                       |
-(FixedFramePoseData)\*                 |
-(TrajectoryData)\*                     |
-(LandmarkData)\*                       |
+*Version 1.0 Serialization Order* |
+:-------------------------------: |
+SerializationHeader               |
+PoseGraph                         |
+AllTrajectoryBuilderOptions       |
+(Submap)\*                        |
+(Node)\*                          |
+(ImuData)\*                       |
+(OdometryData)\*                  |
+(FixedFramePoseData)\*            |
+(TrajectoryData)\*                |
+(LandmarkData)\*                  |
 
 ### Backwards-Compatibility
 
 *   To gracefully transition to the new format, we will provide an internal
     fallback to the *old* parsing of PbStreams. Meaning, we will first try to
-    read the a `SerializationHeader` from the pbstream and if this fails, seek
-    back in the stream and try parsing the *old* format. This way we can at
-    least provide functionality for parsing the last pre-header version.
+    read the a `SerializationHeader` from the pbstream and if this fails, try
+    parsing the *old* format. This way we can at least provide functionality for
+    parsing the last pre-header version.
 *   To discourage usage of the old format, the code for serializing the mapping
     state will only support the new format.
 *   Additionally we will provide a migration tool to re-write already serialized
@@ -109,7 +115,7 @@ AllTrajectoryBuilderOptions            |
 [discussion]: #discussion
 
 *   Version string for new format: 0.9 or 1.0?
-*   Duplicating protos to separate storage and *wire* format as of
+*   Duplicating protos to separate storage and *wire* format following
     protobuf-best-practices
 *   Naming preferences:
     -   `SerializationHeader`

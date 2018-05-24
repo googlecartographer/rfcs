@@ -6,7 +6,7 @@
 
 Definition of a versioned, backwards-compatible and extensible serialization format for cartographer-maps.
 
-*  picking up on previously proposed header format from [RFC-0015](https://gitub.com/googlecartographer/rfc/text/0015-serialization-header.md)
+This RFC is a small deviation of the previously proposed header format from [RFC-0015](https://gitub.com/googlecartographer/rfc/text/0015-serialization-header.md).
 
 ## Motivation
 
@@ -46,6 +46,9 @@ message SerializedPoseGraphData {
 }
 ```
 
+By keeping all the `PoseGraph` related payload-data wrapped in a single message type, we can also easily switch to a different file format in the future (e.g. [Riegeli](https://github.com/google/riegeli/)).
+
+### Generic Message Format
 Using the above messages, the generic file format is defined as:
 
 | `SerializationHeader` |

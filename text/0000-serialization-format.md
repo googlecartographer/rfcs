@@ -8,7 +8,7 @@ Definition of a versioned, backwards-compatible and extensible serialization
 format for the state of Cartographer.
 
 This RFC is a small deviation of the previously proposed header format from
-[RFC-0015](https://github.com/googleCartographer/rfc/text/0015-serialization-header.md).
+[RFC-0015](https://github.com/googlecartographer/rfcs/blob/master/text/0015-serialization-header.md).
 
 ## Motivation
 

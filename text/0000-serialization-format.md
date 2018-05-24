@@ -10,7 +10,7 @@ format for the state of Cartographer.
 This RFC is a small deviation of the previously proposed header format from
 [RFC-0015](https://github.com/googlecartographer/rfcs/blob/master/text/0015-serialization-header.md).
 
-#### Note: This is **NOT** a definition of the binary file-format on disk.
+#### Note: This is **NOT** a definition of the binary file format on disk.
 
 This RFC is mainly addressing the logical order of protobuf messages within a
 decoded binary stream (where decoded e.g. refers to the decompressed message
@@ -29,13 +29,13 @@ users, as there is no way of falling back to load previously serialized states.
 
 This RFC is going to address this issue by introducing a `SerializationHeader`
 message and an interface for parsing serialized states, independent of the
-file-format.
+serialization format.
 
 ## Approach
 
 [approach]: #approach
 
-For being able to identify the underlying file-format, we introduce a
+For being able to identify the underlying serialization format, we introduce a
 `SerializationHeader` message.
 
 ```
@@ -82,8 +82,8 @@ SerializationHeader           |
 
 ### Version 1.0 Serialization Order
 
-Using the definitions above, the proposed file-format for version 1.0 is as
-follows
+Using the definitions above, the proposed serialization format for version 1.0
+is as follows
 
 *Version 1.0 Serialization Order* |
 :-------------------------------: |

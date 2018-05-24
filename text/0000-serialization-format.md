@@ -40,7 +40,7 @@ For being able to identify the underlying serialization format, we introduce a
 
 ```
 message SerializationHeader {
-  string format_version = 1;
+  uint32 format_version = 1;
 }
 ```
 

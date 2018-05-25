@@ -54,18 +54,18 @@ message SerializedData {
     PoseGraph pose_graph = 1;
     AllTrajectoryBuilderOptions all_trajectory_builder_options = 2;
     Submap submap = 3;
-    Node node = 4;
-    ImuData imu_data = 5;
-    OdometryData odometry_data = 6;
-    FixedFramePoseData fixed_frame_pose_data = 7;
-    TrajectoryData trajectory_data = 8;
+    TrajectoryData trajectory_data = 4;
+    Node node = 5;
+    ImuData imu_data = 6;
+    OdometryData odometry_data =7;
+    FixedFramePoseData fixed_frame_pose_data = 8;
     LandmarkData landmark_data = 9;
   }
 }
 ```
 
-For backwards compatibility, we will rename the original `SerializedData`
-definition to `LegacySerializedData`.
+~~For backwards compatibility, we will rename the original `SerializedData`
+definition to `LegacySerializedData`.~~ (see discussion)
 
 By keeping all the payload related data wrapped in a single message type, we can
 also easily switch to a different underlying storage format in the future (e.g.
@@ -100,23 +100,26 @@ AllTrajectoryBuilderOptions       |
 
 ### Backwards-Compatibility
 
-*   To gracefully transition to the new format, we will provide an internal
+*   ~~ To gracefully transition to the new format, we will provide an internal
     fallback to the *old* parsing of PbStreams. Meaning, we will first try to
     read the a `SerializationHeader` from the pbstream and if this fails, try
     parsing the *old* format. This way we can at least provide functionality for
-    parsing the last pre-header version.
-*   To discourage usage of the old format, the code for serializing the mapping
-    state will only support the new format.
-*   Additionally we will provide a migration tool to re-write already serialized
-    pbstreams into the new format.
+    parsing the last pre-header version. ~~ (see discussion)
+*   We will provide a migration tool to re-write already serialized pbstreams
+    into the new format.
 
 ## Discussion Points
 
 [discussion]: #discussion
 
 *   Version string for new format: 0.9 or 1.0?
+    -   `uint32` - first version == 1
 *   Duplicating protos to separate storage and *wire* format following
     protobuf-best-practices
-*   Naming preferences:
-    -   `SerializationHeader`
-    -   `SerializedData`
+
+Discussion during Open-House:
+
+*   SirVer: Cartographer is pre 1.0, why do we want to support the old file
+    format. Migration tool sounds sufficient.
+*   **Decision**: Only provide the proposed migration tool and do not fallback
+    to try loading mapping states using old deserialization routines.

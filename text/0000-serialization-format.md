@@ -114,8 +114,6 @@ AllTrajectoryBuilderOptions       |
 
 *   Version string for new format: 0.9 or 1.0?
     -   `uint32` - first version == 1
-*   Duplicating protos to separate storage and *wire* format following
-    protobuf-best-practices
 
 Discussion during Open-House:
 

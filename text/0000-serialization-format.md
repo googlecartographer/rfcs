@@ -100,11 +100,11 @@ AllTrajectoryBuilderOptions       |
 
 ### Backwards-Compatibility
 
-*   ~~ To gracefully transition to the new format, we will provide an internal
+*   ~~To gracefully transition to the new format, we will provide an internal
     fallback to the *old* parsing of PbStreams. Meaning, we will first try to
     read the a `SerializationHeader` from the pbstream and if this fails, try
     parsing the *old* format. This way we can at least provide functionality for
-    parsing the last pre-header version. ~~ (see discussion)
+    parsing the last pre-header version.~~ (see discussion)
 *   We will provide a migration tool to re-write already serialized pbstreams
     into the new format.
 

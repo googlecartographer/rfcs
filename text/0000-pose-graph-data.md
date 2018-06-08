@@ -1,8 +1,8 @@
-# Pose Graph Refactoring 1: Pose Graph Model
+# Pose Graph Refactoring 1: Pose Graph Data
 ## Summary
 [summary]: #summary
 
-Move the data that models pose graph in 2D or 3D to `PoseGraphModel` struct.
+Move the data that models pose graph in 2D or 3D to `PoseGraphData` struct.
 
 ## Motivation
 [motivation]: #motivation
@@ -93,10 +93,10 @@ struct InternalSubmapData3D {
 
 ## Approach
 [approach]: #approach
-Introduce `PoseGraphModel` and reuse it in `PoseGraph2D` and `PoseGraph3D` classes.
+Introduce `PoseGraphData` and reuse it in `PoseGraph2D` and `PoseGraph3D` classes.
 
 ```cpp
-struct PoseGraphModel {
+struct PoseGraphData {
   MapById<SubmapId, InternalSubmapData> submap_data;
   MapById<SubmapId, SubmapSpec2D> global_submap_poses_2d;
   MapById<SubmapId, SubmapSpec3D> global_submap_poses_3d;

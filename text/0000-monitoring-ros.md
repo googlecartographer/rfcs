@@ -4,7 +4,7 @@
 [summary]: #summary
 
 Add a bridge from `cartographer_ros` to the monitoring facilities of `cartographer`.
-Provide an ROS interface to retrieve these metrics from `cartographer_ros`.
+Provide an ROS interface to retrieve metrics from `cartographer_ros`.
 
 ## Motivation
 [motivation]: #motivation
@@ -13,7 +13,7 @@ Interfaces for collecting runtime metrics have been added to the Cartographer co
 As of today, this interface can be used to expose metrics via Prometheus' protocol in the cloud map builder server.
 
 This RFC aims to expose Cartographer's metrics locally on robot instances that run `cartographer_ros` using a suitable ROS interface.
-We want provide those metrics from the Cartographer node to other nodes in a suitable message format.
+We want to provide those metrics from the Cartographer node to other nodes in a suitable message format.
 
 Use-cases include:
   
@@ -36,7 +36,7 @@ Instead, we provide a service to query the metrics.
 
 ### Public
 
-* Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics`.
+* Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics` (to be defined, WIP).
 
 * Add a service `/collect_metrics` that collects the recent metrics from the registry in its callback and replies with a metrics message.
 

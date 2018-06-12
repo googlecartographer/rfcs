@@ -43,4 +43,4 @@ Instead, we provide a service to query the metrics.
 ## Discussion Points
 [discussion]: #discussion
 
-* 
+Would probably require custom gauge, counter, and histogram implementations? E.g. to support increment/decrement of gauge as done via Prometheus [here in cartographer's implementation](https://github.com/googlecartographer/cartographer/blob/master/cartographer/cloud/metrics/prometheus/family_factory.cc#L70) for example.

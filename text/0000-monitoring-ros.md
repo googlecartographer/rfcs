@@ -33,11 +33,13 @@ Instead, we provide a service to query the metrics.
 
 * Register it to the static global family factory stubs in the Cartographer library using `::cartographer::metrics::RegisterAllMetrics` at initialization of a node, i.e. before any computations take place.
 
+* Add a registry/collector that provides a method to aggregate the state of the metrics into a metrics message (see "Public" section) on demand, i.e. if requested by the service callback.
+
 
 ### Public
 
 Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics`.
-All available messages are aggregated in a single `Metrics.msg`:
+All available metrics are aggregated in a single `Metrics.msg`, this way the service caller has access to all data and can filter by itself if needed:
 ```
 std_msgs/Header header
   uint32 seq

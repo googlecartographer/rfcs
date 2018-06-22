@@ -36,9 +36,50 @@ Instead, we provide a service to query the metrics.
 
 ### Public
 
-* Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics` (to be defined, WIP).
+Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics`.
+All available messages are aggregated in a single `Metrics.msg`:
+```
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+cartographer_ros_msgs/CounterFamily[] counter_families
+  string name
+  string description
+  cartographer_ros_msgs/Counter[] counters
+    cartographer_ros_msgs/Label[] labels
+      string key
+      string value
+    float64 value
+cartographer_ros_msgs/GaugeFamily[] gauge_families
+  string name
+  string description
+  cartographer_ros_msgs/Gauge[] gauges
+    cartographer_ros_msgs/Label[] labels
+      string key
+      string value
+    float64 value
+cartographer_ros_msgs/HistogramFamily[] histogram_families
+  string name
+  string description
+  cartographer_ros_msgs/Histogram[] histograms
+    cartographer_ros_msgs/Label[] labels
+      string key
+      string value
+    cartographer_ros_msgs/HistogramBucket[] counts_by_bucket
+      float64 bucket_boundary
+      float64 count
+```
 
-* Add a service `/collect_metrics` that collects the recent metrics from the registry in its callback and replies with a metrics message.
+Add a service `/collect_metrics` that collects the recent metrics from the registry in its callback and replies with a metrics message.
+Service definition:
+
+```
+# no request args
+---
+cartographer_ros_msgs/StatusResponse status
+cartographer_ros_msgs/Metrics metrics
+```
 
 ## Discussion Points
 [discussion]: #discussion

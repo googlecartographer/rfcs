@@ -27,16 +27,23 @@ Use-cases include:
 We don't implement a `/diagnostics` publisher, as this would require implicit reasoning about the metrics.
 Instead, we provide a service to query the metrics.
 
-### Internal
+### Internal Bridge
 
-* Add a registry in form of a `cartographer_ros::metrics::FamilyFactory` that implements the [abstract base class](https://github.com/googlecartographer/cartographer/blob/master/cartographer/metrics/family_factory.h) from the Cartographer library.
+* Implement basic data structures for counters, gauges and histograms.
+  * Realize the interfaces defined `/cartographer/metrics`.
+  * 3rd-party dependency-free (no Prometheus etc. required).
 
-* Register it to the static global family factory stubs in the Cartographer library using `::cartographer::metrics::RegisterAllMetrics` at initialization of a node, i.e. before any computations take place.
+* Add a registry in form of a `cartographer_ros::metrics::FamilyFactory`:
+  * implements the [abstract base class](https://github.com/googlecartographer/cartographer/blob/master/cartographer/metrics/family_factory.h) from the Cartographer library
+  * holds ownership of all registered metrics families
+  * provides an additional method `CollectMetrics()` that aggregates the state of its metrics into a ROS message format
 
-* Add a registry/collector that provides a method to aggregate the state of the metrics into a metrics message (see "Public" section) on demand, i.e. if requested by the service callback.
+* Establish a bridge to the Cartographer library using `::cartographer::metrics::RegisterAllMetrics` at initialization, i.e. before any computations take place.
 
+* Transfer ownership of the registry to the node.
+* Add and expose a service callback in the node to collect the metrics from the registry.
 
-### Public
+### ROS Interface
 
 Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics`.
 All available metrics are aggregated in a single `Metrics.msg`, this way the service caller has access to all data and can filter by itself if needed:
@@ -86,4 +93,4 @@ cartographer_ros_msgs/Metrics metrics
 ## Discussion Points
 [discussion]: #discussion
 
-Would probably require custom gauge, counter, and histogram implementations? E.g. to support increment/decrement of gauge as done via Prometheus [here in cartographer's implementation](https://github.com/googlecartographer/cartographer/blob/master/cartographer/cloud/metrics/prometheus/family_factory.cc#L70) for example.
+-

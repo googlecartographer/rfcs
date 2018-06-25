@@ -4,7 +4,6 @@
 [summary]: #summary
 
 Make meaningful use of the new `TrajectoryState` enum in `cartographer_ros`.
-This RFC is mostly a to-do list.
 
 ## Motivation
 [motivation]: #motivation
@@ -25,6 +24,7 @@ An easy example is handling an initial pose request in a pure localization setti
 1. Use `GetTrajectoryStates` in existing code that used some other ways of determining the state before.
 
 2. Introduce a `get_trajectory_states` service to query the states.
+The response contains a list of IDs, a list of states and a standard header with timestamp.
 
 ## Discussion Points
 [discussion]: #discussion
@@ -32,8 +32,11 @@ An easy example is handling an initial pose request in a pure localization setti
 These are __not__ related to the new pose graph interface of libcartographer that uses the same names.
 Since they refer to local data only, a renaming makes sense even if this RFC is not considered, see [this pull request](https://github.com/googlecartographer/cartographer_ros/pull/908).
 
+## To-Do
+
 Collect code sections where the new pose graph interface could be used:
  
 * add `MapBuilderBridge::GetTrajectoryStates()`
+* add `Node::HandleGetTrajectoryStates(...)` as the callback for the `/get_trajectory_states` service
 * `MapBuilderBridge::GetFrozenTrajectoryIds()` can be removed, was only used in one callback that check if a trajectory ID is frozen.
 This can be replaced with `map_builder_bridge_.GetTrajectoryStates().at(id) == TrajectoryState::FROZEN`.

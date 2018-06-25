@@ -46,39 +46,7 @@ Instead, we provide a service to query the metrics.
 ### ROS Interface
 
 Add suitable message formats for the metrics to `cartographer_ros_msgs/msg/metrics`.
-All available metrics are aggregated in a single `Metrics.msg`, this way the service caller has access to all data and can filter by itself if needed:
-```
-std_msgs/Header header
-  uint32 seq
-  time stamp
-  string frame_id
-cartographer_ros_msgs/CounterFamily[] counter_families
-  string name
-  string description
-  cartographer_ros_msgs/Counter[] counters
-    cartographer_ros_msgs/Label[] labels
-      string key
-      string value
-    float64 value
-cartographer_ros_msgs/GaugeFamily[] gauge_families
-  string name
-  string description
-  cartographer_ros_msgs/Gauge[] gauges
-    cartographer_ros_msgs/Label[] labels
-      string key
-      string value
-    float64 value
-cartographer_ros_msgs/HistogramFamily[] histogram_families
-  string name
-  string description
-  cartographer_ros_msgs/Histogram[] histograms
-    cartographer_ros_msgs/Label[] labels
-      string key
-      string value
-    cartographer_ros_msgs/HistogramBucket[] counts_by_bucket
-      float64 bucket_boundary
-      float64 count
-```
+All available metrics are aggregated in a single `Metrics.msg`, this way the service caller has access to all data and can filter by itself if needed.
 
 Add a service `/collect_metrics` that collects the recent metrics from the registry in its callback and replies with a metrics message.
 Service definition:

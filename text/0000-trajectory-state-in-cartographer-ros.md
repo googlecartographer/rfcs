@@ -40,3 +40,4 @@ Collect code sections where the new pose graph interface could be used:
 * add `Node::HandleGetTrajectoryStates(...)` as the callback for the `/get_trajectory_states` service
 * `MapBuilderBridge::GetFrozenTrajectoryIds()` can be removed, was only used in one callback that check if a trajectory ID is frozen.
 This can be replaced with `map_builder_bridge_.GetTrajectoryStates().at(id) == TrajectoryState::FROZEN`.
+* `is_active_trajectory_` can be removed

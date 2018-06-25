@@ -32,7 +32,7 @@ An easy example is handling an initial pose request in a pure localization setti
 These are __not__ related to the new pose graph interface of libcartographer that uses the same names.
 Since they refer to local data only, a renaming makes sense even if this RFC is not considered, see [this pull request](https://github.com/googlecartographer/cartographer_ros/pull/908).
 
-Collect code sections where this could be used:
+Collect code sections where the new pose graph interface could be used:
  
 * add `MapBuilderBridge::GetTrajectoryStates()`
 * `MapBuilderBridge::GetFrozenTrajectoryIds()` can be removed, was only used in one callback that check if a trajectory ID is frozen.

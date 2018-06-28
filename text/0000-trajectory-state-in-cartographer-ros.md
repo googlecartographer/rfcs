@@ -28,9 +28,10 @@ The response contains a list of IDs, a list of states and a standard header with
 
 ## Discussion Points
 [discussion]: #discussion
-`cartographer_ros`' map builder bridge has its own `TrajectoryState` and `GetTrajectoryStates`.
-These are __not__ related to the new pose graph interface of libcartographer that uses the same names.
-Since they refer to local data only, a renaming makes sense even if this RFC is not considered, see [this pull request](https://github.com/googlecartographer/cartographer_ros/pull/908).
+~~`cartographer_ros`' map builder bridge has its own `TrajectoryState` and `GetTrajectoryStates`.~~
+~~These are __not__ related to the new pose graph interface of libcartographer that uses the same names.~~
+~~Since they refer to local data only, a renaming makes sense even if this RFC is not considered.~~
+(done, see [this pull request](https://github.com/googlecartographer/cartographer_ros/pull/908))
 
 ## To-Do
 

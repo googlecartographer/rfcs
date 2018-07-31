@@ -35,4 +35,4 @@ Class naming?
 
 Proto compatibility?
 
-Implementation available in googlecartographer/cartographer#1357.
+Implementation available in [googlecartographer/cartographer#1357](https://github.com/googlecartographer/cartographer/pull/1357).

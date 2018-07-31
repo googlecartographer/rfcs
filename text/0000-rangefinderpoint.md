@@ -1,9 +1,9 @@
-# Introduce RangefinderPoint and RangeFinderPointWithTime
+# Introduce [Timed]RangefinderPoint
 
 ## Summary
 [summary]: #summary
 
-Introduce `RangefinderPoint`/`RangefinderPointwithTime` to be used throughout Cartographer instead of using `Eigen::Vector3/4` directly.
+Introduce `[Timed]RangefinderPoint` to be used throughout Cartographer instead of using `Eigen::Vector3/4` directly.
 
 ## Motivation
 [motivation]: #motivation
@@ -16,16 +16,23 @@ Currently, that's not possible, but if Cartographer consistently used a structur
 ## Approach
 [approach]: #approach
 
-Introduce classes `RangefinderPoint` and `RangeFinderPointWithTime`. Replace all uses of `Vector3/4` with the new classes.
+Introduce classes `[Timed]RangefinderPoint` and eplace all uses of `Vector3/4` with the new classes.
 
-Implement `RangeFinderPointWithTime::DiscardTime` method, returning `RangefinderPoint`, which shall be used instead of calling `Vector4::head<3>`. 
+Slicing `TimedRangefinderPoint` to `RangefinderPoint` shall be used instead of calling `Vector4::head<3>`. 
 
 Define `operator*(Rigid3, RangefinderPoint)` for e.g. tracking <-> local frame transformations.
 
-Libcartographer users could then easily modify these functions to preserve their metadata.
+Take care not to break the data flow by avoiding constructing entirely new points - always use metadata-preserving functions on incoming points.
+
+Libcartographer users could then easily modify `RangefinderPoint` to include their metadata.
 
 ## Discussion Points
 [discussion]: #discussion
 
 Inheritance of `Vector3/4` instead of composition?
+
 Class naming?
+
+Proto compatibility?
+
+Implementation available in googlecartographer/cartographer#1357.

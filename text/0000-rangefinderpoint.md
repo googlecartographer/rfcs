@@ -16,7 +16,7 @@ Currently, that's not possible, but if Cartographer consistently used a structur
 ## Approach
 [approach]: #approach
 
-Introduce classes `[Timed]RangefinderPoint` and eplace all uses of `Vector3/4` with the new classes.
+Introduce classes `[Timed]RangefinderPoint` and replace all uses of `Vector3/4` with the new classes.
 
 Slicing `TimedRangefinderPoint` to `RangefinderPoint` shall be used instead of calling `Vector4::head<3>`. 
 

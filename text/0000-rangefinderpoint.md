@@ -30,9 +30,12 @@ Libcartographer users could then easily modify `RangefinderPoint` to include the
 [discussion]: #discussion
 
 Inheritance of `Vector3/4` instead of composition?
+Answer: composition/
 
 Class naming?
 
 Proto compatibility?
+Answer: Retain. 
+Will rename existing proto fields to `_legacy` and make sure old .pbstreams can be deserialized by adding appropriate logic to `FromProto([TimedPointCloud|Range]Data)`.
 
 Implementation available in [googlecartographer/cartographer#1357](https://github.com/googlecartographer/cartographer/pull/1357).

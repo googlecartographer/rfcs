@@ -36,6 +36,6 @@ Class naming?
 
 Proto compatibility?
 Answer: Retain. 
-Will rename existing proto fields to `_legacy` and make sure old .pbstreams can be deserialized by adding appropriate logic to `FromProto([TimedPointCloud|Range]Data)`.
+Will rename existing `Vector3/4` proto fields to `*_legacy` and make sure old .pbstreams can be deserialized by adding appropriate logic to `FromProto([TimedPointCloud|Range]Data)`.
 
 Implementation available in [googlecartographer/cartographer#1357](https://github.com/googlecartographer/cartographer/pull/1357).

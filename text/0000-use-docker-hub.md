@@ -18,11 +18,14 @@ These images could then be re-used by dependent repositories as the base image, 
 
 Add a `googlecartographer` organization on Docker Hub, to which the latest built Docker images of the master branches are pushed, e.g. `googlecartographer/cartographer` or `googlecartographer/cartographer_ros`.
 
+For continuous integration, we push `googlecartographer/cartographer_base` images that contain pre-installed 3rd party dependencies like protobuf, Ceres...
+The version of these dependencies is fixed in the build scripts (directory `scripts/`).
+
 ### Pushing Images in Travis CI
 
 See the Travis documentation for how to set up credentials: [Pushing a Docker Image to a Registry](https://docs.travis-ci.com/user/docker/#pushing-a-docker-image-to-a-registry)
 
-Add a script that pushes only Docker images built from the master branch:
+We have to make sure that we only push Docker images built from the master branch:
 
 ```bash
 #!/bin/bash
@@ -42,9 +45,11 @@ Use the pushed images from Docker Hub as base images for dependent repositories 
 E.g. in `cartographer_ros/Dockerfile.kinetic`:
 
 ```
-FROM googlecartographer/cartographer:xenial
+FROM googlecartographer/cartographer_base:xenial
+FROM ros:kinetic
 ```
-to make re-building `cartographer` in `cartographer_ros` unnecessary in builds triggered by pull requests or on the master branch.
+to make re-building the base dependencies in `cartographer_ros` unnecessary in builds triggered by pull requests or on the master branch.
+Multiple `FROM` statements are supported by Docker and duplicate layers are efficiently handled (ToDo: test that locally with Cartographer).
 
 ## Discussion Points
 [discussion]: #discussion

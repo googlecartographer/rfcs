@@ -21,6 +21,8 @@ Add a `googlecartographer` organization on Docker Hub, to which the latest built
 For continuous integration, we push `googlecartographer/cartographer_base` images that contain pre-installed 3rd party dependencies like protobuf, Ceres...
 The version of these dependencies is fixed in the build scripts (directory `scripts/`).
 
+A `googlecartographer/cartographer_ros_base`
+
 ### Pushing Images in Travis CI
 
 See the Travis documentation for how to set up credentials: [Pushing a Docker Image to a Registry](https://docs.travis-ci.com/user/docker/#pushing-a-docker-image-to-a-registry)
@@ -42,17 +44,20 @@ fi
 
 Use the pushed images from Docker Hub as base images for dependent repositories instead of re-building everything from scratch.
 
-E.g. in `cartographer_ros/Dockerfile.kinetic`:
+`cartographer_ros` would depend on both `ros` and `cartographer_base` images, which makes it a bit more complicated.
+
+Multiple `FROM` statements are supported by Docker, however this means that a multi-stage build is done, not a merge of the images. One can however copy artifacts from previous build stages into the final stage.
 
 ```
-FROM googlecartographer/cartographer_base:xenial
 FROM ros:kinetic
+
+COPY --from=googlecartographer/cartographer_base:xenial <src_dir> <target_dir>
 ```
-to make re-building the base dependencies in `cartographer_ros` unnecessary in builds triggered by pull requests or on the master branch.
-Multiple `FROM` statements are supported by Docker and duplicate layers are efficiently handled (ToDo: test that locally with Cartographer).
 
 ## Discussion Points
 [discussion]: #discussion
 
 So far, this is a rough idea.
 Any concerns or suggestions?
+
+* regarding the `cartographer_base` idea, it might be a lot simpler to just use Debian packages of dependencies if available

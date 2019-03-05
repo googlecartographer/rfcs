@@ -19,8 +19,8 @@ Recent discussions related to this:
 
 It requires a binary string of the trajectory options proto (see [here](https://github.com/googlecartographer/cartographer_ros/blob/61dd57bd94/cartographer_ros_msgs/msg/TrajectoryOptions.msg)), which is impossible to build by client code that should only know the message contract from `cartographer_ros_msgs`.
 
-The `start_trajectory_main.cc` executable exists only to service usable.
-It makes this convenient because it hides exactly these implementation details away from the user/client with a proper interface that has only 3 simple options.
+The `start_trajectory_main.cc` executable exists only to make this service usable.
+It hides the implementation details away from the user/client with a proper interface that has only 3 simple options.
 
 ## Approach
 [approach]: #approach
@@ -38,7 +38,7 @@ cartographer_ros_msgs/StatusResponse status
 int32 trajectory_id
 ```
 
-Change the service handler in `node.cc` to do what `start_trajectory_main.cc` has been doing so far (essentially: loading the configuration).
+Then, change the service handler in `node.cc` to do what `start_trajectory_main.cc` has been doing so far (essentially: loading the configuration).
 
 As a nice side effect we can get rid of the following:
 
@@ -50,11 +50,17 @@ As a nice side effect we can get rid of the following:
 ## Discussion Points
 [discussion]: #discussion
 
-### Optional initial pose
+### Optional initial pose (TODO)
 
 It should be possible to start a trajectory without initial pose, just as now when the initial pose argument isn't given to the start_trajectory executable.
 
 Unlike e.g. protobuf, there's no way to define a part of a message definition as optional in ROS.
+`to_trajectory_id` would be zero initialized if unspecified, which is a valid trajectory ID.
+Maybe it's possible to find a workaround:
+
+* hide the pose in an array that can have zero elements (ugly)
+* two services: `/start_trajectory_with_initial_pose`, `start_trajectory`
+* ...?
 
 ### Keep time parameter?
 

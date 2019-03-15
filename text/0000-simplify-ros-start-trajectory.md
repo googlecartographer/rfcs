@@ -30,9 +30,9 @@ Change the service definition so that clients only need to depend on message pac
 ```
 string configuration_directory
 string configuration_basename
+bool use_initial_pose
 geometry_msgs/Pose initial_pose
 int32 to_trajectory_id
-time relative_timestamp
 ---
 cartographer_ros_msgs/StatusResponse status
 int32 trajectory_id
@@ -50,7 +50,7 @@ As a nice side effect we can get rid of the following:
 ## Discussion Points
 [discussion]: #discussion
 
-### Optional initial pose (TODO)
+### Optional initial pose
 
 It should be possible to start a trajectory without initial pose, just as now when the initial pose argument isn't given to the start_trajectory executable.
 
@@ -62,6 +62,22 @@ Maybe it's possible to find a workaround:
 * two services: `/start_trajectory_with_initial_pose`, `start_trajectory`
 * ...?
 
+**Decision**:
+Add boolean message field `use_initial_pose` - easy to understand and easy to use.
+
 ### Keep time parameter?
 
 The time parameter of the initial pose is a bit of an obscure feature that might confuse people - should we keep it in the ROS service? See [cartographer/pose_graph.h](https://github.com/googlecartographer/cartographer/blob/bdb6f2db4a1f98484b222d61abceab8adb74dfd1/cartographer/mapping/pose_graph.h#L138)
+
+**Decision**:
+Don't expose in ROS service.
+
+### Advantages of passing options in the message?
+
+As mentioned by @ojura in the open house meeting, the proposed approach requires that the configuration lies on the host filesystem of the Cartographer node.
+Binary proto allowed to transfer options from a client in the network.
+
+**Decision**:
+We agreed that we will drop this possibility for the sake of simplicity, which will benefit more users.
+Also, client/server scenarios are better covered by Cartographer gRPC anyway.
+
